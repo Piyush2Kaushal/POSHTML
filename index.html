@@ -175,7 +175,14 @@
         display: none;
       }
     </style>
- 
+
+    <!-- ── Component configuration ───────────────────────────────────── -->
+    <script>
+      window.PAGE_ID = "new-sale";
+      window.ASSET_BASE = "https://c.animaapp.com/mlt18op6AAV2ml/assets";
+      /* If components.js lives in a sub-folder, set e.g.: */
+      /* window.COMPONENTS_BASE = "components"; */
+    </script>
   </head>
   <body
     class="text-zinc-900 text-base not-italic normal-nums font-normal accent-auto bg-zinc-100 box-border caret-transparent block tracking-[normal] leading-6 list-outside list-disc outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-auto text-start indent-[0px] normal-case visible border-separate font-ui_sans_serif"
@@ -746,12 +753,6 @@
     </script>
 
     <!-- Shared component loader (must come last) -->
-    <script>
-      window.PAGE_ID = "new-sale";
-      window.ASSET_BASE = "https://c.animaapp.com/mlt18op6AAV2ml/assets";
-      window.COMPONENTS_BASE = "components";  
-    </script>
-    
     <script src="components.js"></script>
   </body>
 </html>
