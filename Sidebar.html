@@ -1,0 +1,449 @@
+<aside
+  id="main-sidebar"
+  class="sticky top-0 self-start h-[93vh] bg-white shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_10px_15px_-3px,rgba(0,0,0,0.1)_0px_4px_6px_-4px] box-border caret-transparent flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-16 border-r border-solid border-[oklch(0.928_0.006_264.531)]"
+>
+  <div
+    class="absolute bg-[linear-gradient(oklab(0.623_-0.0378409_-0.210628_/_0.03)_0%,rgba(0,0,0,0)_100%)] box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none inset-0"
+  ></div>
+  <button
+    id="sidebar-toggle-btn"
+    title="Expand sidebar"
+    onclick="toggleDesktopSidebar()"
+    class="absolute font-medium items-center bg-white shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_4px_6px_-1px,rgba(0,0,0,0.1)_0px_2px_4px_-2px] caret-transparent flex h-7 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-center w-7 z-20 border p-0 rounded-[3.35544e+07px] border-solid border-[oklch(0.928_0.006_264.531)] -right-3.5 top-5 hidden md:flex"
+  >
+    <img
+      id="sidebar-expand-icon"
+      src=""
+      alt="Icon"
+      class="text-[oklch(0.446_0.03_256.802)] box-border caret-transparent h-3.5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3.5"
+    />
+  </button>
+  <nav
+    class="relative box-border caret-transparent gap-x-0.5 flex basis-[0%] flex-col grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-0.5 z-10 overflow-auto px-2 py-3"
+  >
+    <!-- New Sale -->
+    <div
+      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+    >
+      <a
+        title="New Sale"
+        href="index.html"
+        id="nav-new-sale"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-new-sale-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-new-sale-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-newsale-icon"
+            src=""
+            alt="Icon"
+            class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label hidden text-[oklch(0.373_0.034_259.733)] text-sm font-semibold ml-2.5 whitespace-nowrap">New Sale</span>
+        
+      </a>
+    </div>
+
+    <!-- Group 1: Inventory, Products, Categories, Pricing, Warehouse, Shelving -->
+    <div
+      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-3"
+    >
+      <div
+        class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-2 mx-1 border-t border-solid border-[oklch(0.967_0.003_264.542)]"
+      ></div>
+
+      <!-- CATALOG section label -->
+      <p class="sidebar-section-label text-[oklch(0.551_0.027_264.364)] text-[10px] font-semibold tracking-widest uppercase px-3 mb-1 mt-1" style="display:none">Catalog</p>
+
+      <!-- Inventory -->
+      <a
+        title="Inventory"
+        href="Inventory.html"
+        id="nav-inventory"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-inventory-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-inventory-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-inventory-icon"
+            src=""
+            alt="Icon"
+            class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label text-[oklch(0.373_0.034_259.733)] text-sm font-medium ml-2.5 whitespace-nowrap" style="display:none">Inventory</span>
+      </a>
+
+      <!-- Products -->
+      <a
+        title="Products"
+        href="ProductManagement.html"
+        id="nav-products"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-products-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-products-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-products-icon"
+            src=""
+            alt="Icon"
+            class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label text-[oklch(0.373_0.034_259.733)] text-sm font-medium ml-2.5 whitespace-nowrap" style="display:none">Products</span>
+      </a>
+
+      <!-- Categories -->
+      <a
+        title="Categories"
+        href="CategoriesManagement.html"
+        id="nav-categories"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-categories-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-categories-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-categories-icon"
+            src=""
+            alt="Icon"
+            class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label text-[oklch(0.373_0.034_259.733)] text-sm font-medium ml-2.5 whitespace-nowrap" style="display:none">Categories</span>
+      </a>
+
+      <!-- Pricing -->
+      <a
+        title="Pricing"
+        href="PriceManagement.html"
+        id="nav-pricing"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-pricing-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-pricing-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-pricing-icon"
+            src=""
+            alt="Icon"
+            class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label text-[oklch(0.373_0.034_259.733)] text-sm font-medium ml-2.5 whitespace-nowrap" style="display:none">Pricing</span>
+      </a>
+
+      <!-- Warehouse -->
+      <a
+        title="Warehouse"
+        href="WarehouseManagement.html"
+        id="nav-warehouse"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-warehouse-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-warehouse-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-warehouse-icon"
+            src=""
+            alt="Icon"
+            class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label text-[oklch(0.373_0.034_259.733)] text-sm font-medium ml-2.5 whitespace-nowrap" style="display:none">Warehouse</span>
+      </a>
+
+      <!-- Shelving -->
+      <a
+        title="Shelving"
+        href="ProductShelvingManagement.html"
+        id="nav-shelving"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-shelving-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-shelving-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-shelving-icon"
+            src=""
+            alt="Icon"
+            class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label text-[oklch(0.373_0.034_259.733)] text-sm font-medium ml-2.5 whitespace-nowrap" style="display:none">Shelving</span>
+      </a>
+    </div>
+
+    <!-- Group 2: Purchases, Customers, Staff -->
+    <div
+      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-3"
+    >
+      <div
+        class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-2 mx-1 border-t border-solid border-[oklch(0.967_0.003_264.542)]"
+      ></div>
+
+      <!-- OPERATIONS section label -->
+      <p class="sidebar-section-label text-[oklch(0.551_0.027_264.364)] text-[10px] font-semibold tracking-widest uppercase px-3 mb-1 mt-1" style="display:none">Operations</p>
+
+      <!-- Purchases -->
+      <a
+        title="Purchases"
+        href="PurchaseManagement.html"
+        id="nav-purchases"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-purchases-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-purchases-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-purchases-icon"
+            src=""
+            alt="Icon"
+            class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label text-[oklch(0.373_0.034_259.733)] text-sm font-medium ml-2.5 whitespace-nowrap" style="display:none">Purchases</span>
+      </a>
+
+      <!-- Customers -->
+      <a
+        title="Customers"
+        href="CustomerManagement.html"
+        id="nav-customers"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-customers-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-customers-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-customers-icon"
+            src=""
+            alt="Icon"
+            class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label text-[oklch(0.373_0.034_259.733)] text-sm font-medium ml-2.5 whitespace-nowrap" style="display:none">Customers</span>
+      </a>
+
+      <!-- Staff -->
+      <a
+        title="Staff"
+        href="StaffManagement.html"
+        id="nav-staff"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-staff-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-staff-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-staff-icon"
+            src=""
+            alt="Icon"
+            class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label text-[oklch(0.373_0.034_259.733)] text-sm font-medium ml-2.5 whitespace-nowrap" style="display:none">Staff</span>
+      </a>
+    </div>
+
+    <!-- Group 3: Invoices, Templates, Returns, Reports -->
+    <div
+      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-3"
+    >
+      <div
+        class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-2 mx-1 border-t border-solid border-[oklch(0.967_0.003_264.542)]"
+      ></div>
+
+      <!-- FINANCE section label -->
+      <p class="sidebar-section-label text-[oklch(0.551_0.027_264.364)] text-[10px] font-semibold tracking-widest uppercase px-3 mb-1 mt-1" style="display:none">Finance</p>
+
+      <!-- Invoices -->
+      <a
+        title="Invoices"
+        href="Invoices.html"
+        id="nav-invoices"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-invoices-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-invoices-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-invoices-icon"
+            src=""
+            alt="Icon"
+            class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label text-[oklch(0.373_0.034_259.733)] text-sm font-medium ml-2.5 whitespace-nowrap" style="display:none">Invoices</span>
+      </a>
+
+      <!-- Templates -->
+      <a
+        title="Templates"
+        href="InvoiceTemplates.html"
+        id="nav-templates"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-templates-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-templates-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-templates-icon"
+            src=""
+            alt="Icon"
+            class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label text-[oklch(0.373_0.034_259.733)] text-sm font-medium ml-2.5 whitespace-nowrap" style="display:none">Templates</span>
+      </a>
+
+      <!-- Returns -->
+      <a
+        title="Returns"
+        href="ReturnManagement.html"
+        id="nav-returns"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-returns-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-returns-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-returns-icon"
+            src=""
+            alt="Icon"
+            class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label text-[oklch(0.373_0.034_259.733)] text-sm font-medium ml-2.5 whitespace-nowrap" style="display:none">Returns</span>
+      </a>
+
+      <!-- Reports -->
+      <a
+        title="Reports"
+        href="AdvancedReports&amp;Analytics.html"
+        id="nav-reports"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-reports-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-reports-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-reports-icon"
+            src=""
+            alt="Icon"
+            class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label text-[oklch(0.373_0.034_259.733)] text-sm font-medium ml-2.5 whitespace-nowrap" style="display:none">Reports</span>
+      </a>
+    </div>
+
+    <!-- Group 4: Website -->
+    <div
+      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-3"
+    >
+      <div
+        class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-2 mx-1 border-t border-solid border-[oklch(0.967_0.003_264.542)]"
+      ></div>
+
+      <!-- Website -->
+      <a
+        title="Website"
+        href="WebsiteManagement.html"
+        id="nav-website"
+        class="sidebar-nav-link relative items-center box-border caret-transparent flex h-10 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-10 mx-auto rounded-xl"
+      >
+        <div
+          id="nav-website-active-bar"
+          class="absolute bg-[linear-gradient(oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent h-6 w-1 rounded-r-[3.35544e+07px] left-0 top-1/2 -translate-y-1/2 hidden"
+        ></div>
+        <div
+          id="nav-website-icon-wrap"
+          class="items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent flex shrink-0 h-8 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-8 rounded-lg"
+        >
+          <img
+            id="sidebar-website-icon"
+            src=""
+            alt="Icon"
+            class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+          />
+        </div>
+        <span class="sidebar-nav-label text-[oklch(0.373_0.034_259.733)] text-sm font-medium ml-2.5 whitespace-nowrap" style="display:none">Website</span>
+      </a>
+    </div>
+  </nav>
+</aside>

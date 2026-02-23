@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BNM Parts — Purchase Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        content: [],
+        theme: {
+          extend: {
+            fontFamily: {
+              ui_sans_serif: [
+                "ui-sans-serif",
+                "system-ui",
+                "sans-serif",
+                "Apple Color Emoji",
+                "Segoe UI Emoji",
+                "Segoe UI Symbol",
+                "Noto Color Emoji",
+              ],
+              ui_monospace: [
+                "ui-monospace",
+                "SFMono-Regular",
+                "Menlo",
+                "Monaco",
+                "Consolas",
+                "Liberation Mono",
+                "Courier New",
+                "monospace",
+              ],
+            },
+            animation: {
+              "fade-in":   "fadeIn  0.6s ease-out",
+              "slide-up":  "slideUp 0.6s ease-out",
+              "slide-down":"slideDown 0.3s ease-out",
+              "scale-in":  "scaleIn 0.4s ease-out",
+              "count-up":  "countUp 1.5s ease-out",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%":   { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%":   { opacity: "0", transform: "translateY(20px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              slideDown: {
+                "0%":   { opacity: "0", transform: "translateY(-10px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              scaleIn: {
+                "0%":   { opacity: "0", transform: "scale(0.95)" },
+                "100%": { opacity: "1", transform: "scale(1)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* ── Entrance animations ─────────────────────────────────────────── */
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to   { opacity: 1; transform: scale(1); }
+      }
+
+      .animate-fade-in   { animation: fadeIn  0.6s ease-out; }
+      .animate-slide-up  { animation: slideUp 0.6s ease-out; }
+      .animate-slide-down{ animation: slideDown 0.3s ease-out; }
+      .animate-scale-in  { animation: scaleIn 0.4s ease-out; }
+
+      .stagger-1 { animation-delay: 0.1s; animation-fill-mode: both; }
+      .stagger-2 { animation-delay: 0.2s; animation-fill-mode: both; }
+      .stagger-3 { animation-delay: 0.3s; animation-fill-mode: both; }
+      .stagger-4 { animation-delay: 0.4s; animation-fill-mode: both; }
+
+      .hover-lift:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+      }
+      .hover-scale:hover { transform: scale(1.02); }
+
+      .sidebar-item { transition: all 0.2s ease; }
+      .sidebar-item:hover { background-color: rgba(0,0,0,0.03); }
+      .sidebar-item.active { background-color: rgba(14,165,233,0.1); }
+
+      .tab-button { transition: all 0.2s ease; }
+      .tab-button:not(.active):hover { background-color: rgba(0,0,0,0.03); }
+
+      .progress-bar { transition: width 1s ease-out; }
+
+      input:focus,
+      button:focus {
+        outline: 2px solid rgba(14,165,233,0.5);
+        outline-offset: 2px;
+      }
+
+      /* ── Mobile sidebar overlay ──────────────────────────────────────── */
+      #sidebar-overlay {
+        display: none;
+      }
+      #sidebar-overlay.active {
+        display: block;
+      }
+
+      @media (max-width: 767px) {
+        #main-sidebar {
+          position: fixed;
+          top: 3.5rem;        /* below h-14 header */
+          left: 0;
+          bottom: 0;
+          z-index: 40;
+          transform: translateX(-100%);
+          transition: transform 0.25s ease;
+        }
+        #main-sidebar.open {
+          transform: translateX(0);
+        }
+        #sidebar-overlay {
+          position: fixed;
+          inset: 0;
+          top: 3.5rem;
+          background: rgba(0, 0, 0, 0.3);
+          z-index: 39;
+        }
+      }
+
+
+      @media (min-width: 768px) {
+        #main-sidebar {
+          width: 4rem !important;
+          transition: width 0.25s ease;
+          overflow: visible;
+        }
+        #main-sidebar nav {
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+        #main-sidebar.expanded {
+          width: 14rem !important;
+        }
+        #main-sidebar.expanded .sidebar-nav-link {
+          width: auto;
+          justify-content: flex-start;
+          padding-left: 0.5rem;
+          padding-right: 0.5rem;
+          margin-left: 0;
+          margin-right: 0;
+        }
+        #main-sidebar.expanded .sidebar-nav-label {
+          display: inline !important;
+        }
+        #main-sidebar.expanded .sidebar-section-label {
+          display: block !important;
+        }
+        #main-sidebar.expanded #sidebar-expand-icon {
+          transform: scaleX(-1);
+        }
+      }
+    </style>
+
+    <!-- ── Component & asset configuration (must be before components.js) ── -->
+    <script>
+      window.PAGE_ID    = "purchases";
+      window.ASSET_BASE = "https://c.animaapp.com/mltdd1b04RiY6X/assets";
+    </script>
+  </head>
+
+  <body
+    class="text-zinc-900 text-base not-italic normal-nums font-normal accent-auto bg-zinc-100 box-border caret-transparent block tracking-[normal] leading-6 list-outside list-disc outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-auto text-start indent-[0px] normal-case visible border-separate font-ui_sans_serif"
+  >
+    <div
+      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+    >
+      <div
+        class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+      >
+        <div
+          class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+        >
+          <div
+            class="relative box-border caret-transparent basis-0 grow shrink-0 min-h-px min-w-px outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full"
+            style="height: 100vh"
+          >
+            <div
+              class="bg-[linear-gradient(to_right_bottom,oklch(0.985_0.002_247.839)_0%,oklch(0.967_0.003_264.542)_50%,oklch(0.985_0.002_247.839)_100%)] box-border caret-transparent flex flex-col h-full outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+            >
+              <!-- ═══════════════════════════════════════════════════════
+                   HEADER — injected dynamically by components.js
+              ══════════════════════════════════════════════════════════ -->
+              <div id="header-slot"></div>
+
+              <!-- Mobile sidebar backdrop -->
+              <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+              <div
+                class="box-border caret-transparent flex basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] overflow-hidden"
+              >
+                <!-- ═════════════════════════════════════════════════════
+                     SIDEBAR — injected dynamically by components.js
+                ═════════════════════════════════════════════════════════ -->
+                <div id="sidebar-slot"></div>
+
+                <!-- ═════════════════════════════════════════════════════
+                     MAIN CONTENT — unchanged from original
+                ═════════════════════════════════════════════════════════ -->
+                <main
+                  class="bg-[oklch(0.985_0.002_247.839)] box-border caret-transparent basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] overflow-auto"
+                >
+                  <div
+                    class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] p-6"
+                  >
+                    <div
+                      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-6 animate-slide-up"
+                    >
+                      <!-- ── Page title + New Purchase button ─────────── -->
+                      <div
+                        class="items-center box-border caret-transparent flex justify-between outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-4"
+                      >
+                        <h2
+                          class="text-[oklch(0.21_0.034_264.665)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                        >
+                          Purchase Management
+                        </h2>
+                        <button
+                          class="text-white text-sm font-medium items-center bg-sky-600 shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] caret-transparent gap-x-2 flex shrink-0 h-9 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap px-3 py-2 rounded-lg"
+                        >
+                          <img
+                            src="https://c.animaapp.com/mltdd1b04RiY6X/assets/icon-21.svg"
+                            alt="Icon"
+                            class="box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4 mr-2"
+                          />
+                          New Purchase
+                        </button>
+                      </div>
+
+                      <!-- ── Stat Cards (4-column grid) ─────────────────
+                           Each value element carries an id so PurchaseData.js
+                           can write the computed value in at runtime.
+                      ─────────────────────────────────────────────────── -->
+                      <div
+                        class="box-border caret-transparent gap-x-4 grid grid-cols-[repeat(1,minmax(0px,1fr))] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-4 mb-6 md:grid-cols-[repeat(4,minmax(0px,1fr))]"
+                      >
+                        <!-- Card 1: Total Purchases -->
+                        <div
+                          class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid transition-all hover-lift animate-slide-up stagger-1"
+                        >
+                          <div
+                            class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 pb-2 px-6"
+                          >
+                            <h4
+                              class="text-[oklch(0.446_0.03_256.802)] text-sm font-medium box-border caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              Total Purchases
+                            </h4>
+                          </div>
+                          <div
+                            class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6"
+                          >
+                            <div
+                              id="purchase-stat-total"
+                              class="text-[oklch(0.21_0.034_264.665)] text-3xl font-bold box-border caret-transparent leading-9 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              10
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Card 2: Total Spent -->
+                        <div
+                          class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid transition-all hover-lift animate-slide-up stagger-2"
+                        >
+                          <div
+                            class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 pb-2 px-6"
+                          >
+                            <h4
+                              class="text-[oklch(0.446_0.03_256.802)] text-sm font-medium box-border caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              Total Spent
+                            </h4>
+                          </div>
+                          <div
+                            class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6"
+                          >
+                            <div
+                              id="purchase-stat-spent"
+                              class="text-[oklch(0.577_0.245_27.325)] text-3xl font-bold box-border caret-transparent leading-9 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              £113130.00
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Card 3: Pending -->
+                        <div
+                          class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid transition-all hover-lift animate-slide-up stagger-3"
+                        >
+                          <div
+                            class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 pb-2 px-6"
+                          >
+                            <h4
+                              class="text-[oklch(0.446_0.03_256.802)] text-sm font-medium box-border caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              Pending
+                            </h4>
+                          </div>
+                          <div
+                            class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6"
+                          >
+                            <div
+                              id="purchase-stat-pending"
+                              class="text-[oklch(0.646_0.222_41.116)] text-3xl font-bold box-border caret-transparent leading-9 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              3
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Card 4: Completed -->
+                        <div
+                          class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid transition-all hover-lift animate-slide-up stagger-4"
+                        >
+                          <div
+                            class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 pb-2 px-6"
+                          >
+                            <h4
+                              class="text-[oklch(0.446_0.03_256.802)] text-sm font-medium box-border caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              Completed
+                            </h4>
+                          </div>
+                          <div
+                            class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6"
+                          >
+                            <div
+                              id="purchase-stat-completed"
+                              class="text-[oklch(0.627_0.194_149.214)] text-3xl font-bold box-border caret-transparent leading-9 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              7
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- ── Search + Filter row ─────────────────────── -->
+                      <div
+                        class="box-border caret-transparent gap-x-4 flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-4 mb-4"
+                      >
+                        <div
+                          class="relative box-border caret-transparent basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                        >
+                          <img
+                            src="https://c.animaapp.com/mltdd1b04RiY6X/assets/icon-22.svg"
+                            alt="Icon"
+                            class="absolute text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-5 left-3 top-2/4 -translate-y-1/2"
+                          />
+                          <input
+                            id="purchase-search"
+                            type="text"
+                            placeholder="Search purchases..."
+                            value=""
+                            class="text-base backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] box-border caret-transparent flex h-9 leading-6 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.6)] pl-10 pr-3 py-1 rounded-lg border-solid md:text-sm md:leading-5"
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          role="combobox"
+                          class="text-sm font-medium items-center bg-stone-50/70 caret-transparent gap-x-2 flex h-9 justify-between leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap w-40 border px-3 py-2 rounded-md border-solid border-transparent"
+                        >
+                          <span
+                            class="items-center box-border caret-transparent gap-x-2 flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none gap-y-2 text-nowrap overflow-hidden"
+                            >All Status</span
+                          >
+                          <img
+                            src="https://c.animaapp.com/mltdd1b04RiY6X/assets/icon-23.svg"
+                            alt="Icon"
+                            class="text-neutral-500 box-border caret-transparent shrink-0 h-4 opacity-50 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
+                          />
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- ── Purchase Table card ─────────────────────────── -->
+                    <div
+                      class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid animate-slide-up"
+                      style="animation-delay: 0.5s; animation-fill-mode: both"
+                    >
+                      <div
+                        class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6"
+                      >
+                        <div
+                          class="relative box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full overflow-auto"
+                        >
+                          <table
+                            class="text-sm caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full border-collapse"
+                          >
+                            <thead
+                              class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              <tr
+                                class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] align-middle border-b border-solid border-black/10"
+                              >
+                                <th
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  Purchase ID
+                                </th>
+                                <th
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  Supplier
+                                </th>
+                                <th
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  Date
+                                </th>
+                                <th
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  Items
+                                </th>
+                                <th
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  Total
+                                </th>
+                                <th
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  Payment
+                                </th>
+                                <th
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  Status
+                                </th>
+                                <th
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  Action
+                                </th>
+                              </tr>
+                            </thead>
+
+                            <!-- Rows injected dynamically by PurchaseData.js -->
+                            <tbody
+                              id="purchase-tbody"
+                              class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            ></tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </main>
+                <!-- end main -->
+              </div>
+            </div>
+
+            <section
+              aria-label="Notifications alt+T"
+              class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+            ></section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Mobile sidebar toggle helper ────────────────────────────────── -->
+    <script>
+      function toggleSidebar() {
+        var sidebar = document.getElementById("main-sidebar");
+        var overlay = document.getElementById("sidebar-overlay");
+        if (sidebar) sidebar.classList.toggle("open");
+        if (overlay) overlay.classList.toggle("active");
+      }
+    </script>
+
+    <!-- 1. Load shared header + sidebar (must run first) -->
+    <script src="components.js"></script>
+
+    <!-- 2. Load purchase-specific data + renderer -->
+    <script src="PurchaseData.js"></script>
+  </body>
+</html>

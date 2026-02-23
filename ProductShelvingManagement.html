@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BNM Parts - Product Shelving Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        content: [],
+        theme: {
+          extend: {
+            fontFamily: {
+              ui_sans_serif: [
+                "ui-sans-serif",
+                "system-ui",
+                "sans-serif",
+                "Apple Color Emoji",
+                "Segoe UI Emoji",
+                "Segoe UI Symbol",
+                "Noto Color Emoji",
+              ],
+              ui_monospace: [
+                "ui-monospace",
+                "SFMono-Regular",
+                "Menlo",
+                "Monaco",
+                "Consolas",
+                "Liberation Mono",
+                "Courier New",
+                "monospace",
+              ],
+            },
+            animation: {
+              "fade-in": "fadeIn 0.6s ease-out",
+              "slide-up": "slideUp 0.6s ease-out",
+              "slide-down": "slideDown 0.3s ease-out",
+              "scale-in": "scaleIn 0.4s ease-out",
+              "count-up": "countUp 1.5s ease-out",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%": { opacity: "0", transform: "translateY(20px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              slideDown: {
+                "0%": { opacity: "0", transform: "translateY(-10px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              scaleIn: {
+                "0%": { opacity: "0", transform: "scale(0.95)" },
+                "100%": { opacity: "1", transform: "scale(1)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+      }
+
+      .animate-fade-in    { animation: fadeIn 0.6s ease-out; }
+      .animate-slide-up   { animation: slideUp 0.6s ease-out; }
+      .animate-slide-down { animation: slideDown 0.3s ease-out; }
+      .animate-scale-in   { animation: scaleIn 0.4s ease-out; }
+
+      .stagger-1 { animation-delay: 0.1s; animation-fill-mode: both; }
+      .stagger-2 { animation-delay: 0.2s; animation-fill-mode: both; }
+      .stagger-3 { animation-delay: 0.3s; animation-fill-mode: both; }
+      .stagger-4 { animation-delay: 0.4s; animation-fill-mode: both; }
+
+      .transition-all { transition: all 0.3s ease; }
+
+      .hover-lift:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+      }
+
+      .hover-scale:hover { transform: scale(1.02); }
+
+      .sidebar-item { transition: all 0.2s ease; }
+      .sidebar-item:hover { background-color: rgba(0,0,0,0.03); }
+      .sidebar-item.active { background-color: rgba(14,165,233,0.1); }
+
+      /* ── Mobile sidebar overlay ── */
+      #sidebar-overlay {
+        display: none;
+      }
+      #sidebar-overlay.active {
+        display: block;
+      }
+
+      @media (max-width: 767px) {
+        #main-sidebar {
+          position: fixed;
+          top: 3.5rem;
+          left: 0;
+          bottom: 0;
+          z-index: 40;
+          transform: translateX(-100%);
+          transition: transform 0.3s ease;
+        }
+        #main-sidebar.open {
+          transform: translateX(0);
+        }
+        #sidebar-overlay {
+          position: fixed;
+          inset: 0;
+          top: 3.5rem;
+          background: rgba(0, 0, 0, 0.3);
+          z-index: 39;
+        }
+      }
+
+      /* ── Table horizontal scroll on mobile ── */
+      .table-scroll-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* ── Tab transition ── */
+      .tab-button {
+        transition: all 0.2s ease;
+      }
+      .tab-button:not(.active):hover {
+        background-color: rgba(0, 0, 0, 0.03);
+      }
+
+
+
+      @media (min-width: 768px) {
+        #main-sidebar {
+          width: 4rem !important;
+          transition: width 0.25s ease;
+          overflow: visible;
+        }
+        #main-sidebar nav {
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+        #main-sidebar.expanded {
+          width: 14rem !important;
+        }
+        #main-sidebar.expanded .sidebar-nav-link {
+          width: auto;
+          justify-content: flex-start;
+          padding-left: 0.5rem;
+          padding-right: 0.5rem;
+          margin-left: 0;
+          margin-right: 0;
+        }
+        #main-sidebar.expanded .sidebar-nav-label {
+          display: inline !important;
+        }
+        #main-sidebar.expanded .sidebar-section-label {
+          display: block !important;
+        }
+        #main-sidebar.expanded #sidebar-expand-icon {
+          transform: scaleX(-1);
+        }
+      }
+    </style>
+
+    <!-- ── Component configuration ─────────────────────────────── -->
+    <script>
+      window.PAGE_ID    = "shelving";
+      window.ASSET_BASE = "https://c.animaapp.com/mltd9ksuMx2CxO/assets";
+    </script>
+  </head>
+
+  <body
+    class="text-zinc-900 text-base not-italic normal-nums font-normal accent-auto bg-zinc-100 box-border caret-transparent block tracking-[normal] leading-6 list-outside list-disc outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-auto text-start indent-[0px] normal-case visible border-separate font-ui_sans_serif"
+  >
+    <div
+      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+    >
+      <div
+        class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+      >
+        <div
+          class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+        >
+          <div
+            class="relative box-border caret-transparent basis-0 grow shrink-0 min-h-px min-w-px outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full"
+            style="height: 100vh"
+          >
+            <div
+              class="bg-[linear-gradient(to_right_bottom,oklch(0.985_0.002_247.839)_0%,oklch(0.967_0.003_264.542)_50%,oklch(0.985_0.002_247.839)_100%)] box-border caret-transparent flex flex-col h-full outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+            >
+              <!-- ═══ HEADER (injected by components.js) ═══ -->
+              <div id="header-slot"></div>
+
+              <!-- Sidebar overlay for mobile -->
+              <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+              <div
+                class="box-border caret-transparent flex basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] overflow-hidden"
+              >
+                <!-- ═══ SIDEBAR (injected by components.js) ═══ -->
+                <div id="sidebar-slot"></div>
+
+                <!-- MAIN CONTENT -->
+                <main
+                  class="bg-[oklch(0.985_0.002_247.839)] box-border caret-transparent basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] overflow-auto"
+                >
+                  <!-- ✅ FIX 1: p-3 md:p-6 (was p-6 only) + max-w + mx-auto — matches CustomerManagement -->
+                  <div
+                    class="box-border caret-transparent max-w-[1600px] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mx-auto p-3 md:p-6"
+                  >
+                    <!-- ── Page Header ─────────────────────────────────── -->
+                    <div
+                      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-6 animate-slide-up"
+                    >
+                      <!-- ✅ FIX 2: flex-wrap + gap-y-3 so title+buttons stack on mobile -->
+                      <div
+                        class="items-center box-border caret-transparent flex flex-wrap gap-y-3 justify-between outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-4"
+                      >
+                        <div
+                          class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                        >
+                          <h2
+                            class="text-[oklch(0.21_0.034_264.665)] text-2xl font-bold items-center box-border caret-transparent gap-x-2 flex leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mltd9ksuMx2CxO/assets/icon-21.svg"
+                              alt="Icon"
+                              class="text-[oklch(0.558_0.288_302.321)] box-border caret-transparent h-7 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-7"
+                            />
+                            Product Shelving Management
+                          </h2>
+                          <p
+                            class="text-[oklch(0.446_0.03_256.802)] text-sm box-border caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-1"
+                          >
+                            Organize products on shelves, racks, and bins
+                          </p>
+                        </div>
+                        <div
+                          class="box-border caret-transparent gap-x-2 flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2"
+                        >
+                          <button
+                            class="text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-2 flex shrink-0 h-9 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-3 py-2 rounded-lg border-solid"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mltd9ksuMx2CxO/assets/icon-22.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
+                            />
+                            Map Product
+                          </button>
+                          <button
+                            class="text-white text-sm font-medium items-center bg-sky-600 shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] caret-transparent gap-x-2 flex shrink-0 h-9 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap px-3 py-2 rounded-lg"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mltd9ksuMx2CxO/assets/icon-23.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
+                            />
+                            Add Shelf Location
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- ── Stats Cards (5-column grid) ───────────────── -->
+                      <!-- ✅ FIX 3: grid-cols-1 → md:grid-cols-2 → lg:grid-cols-5 for 5-card row -->
+                      <div
+                        class="box-border caret-transparent gap-x-4 grid grid-cols-[repeat(1,minmax(0px,1fr))] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-4 mb-6 md:grid-cols-[repeat(2,minmax(0px,1fr))] lg:grid-cols-[repeat(5,minmax(0px,1fr))]"
+                      >
+                        <!-- Card 1: Total Shelves -->
+                        <div
+                          class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.623_0.214_259.815)] border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-1"
+                        >
+                          <div
+                            class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 pb-2 px-6"
+                          >
+                            <h4
+                              class="text-[oklch(0.446_0.03_256.802)] text-sm font-medium items-center box-border caret-transparent gap-x-2 flex leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2"
+                            >
+                              <img
+                                src="https://c.animaapp.com/mltd9ksuMx2CxO/assets/icon-24.svg"
+                                alt="Icon"
+                                class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+                              />
+                              Total Shelves
+                            </h4>
+                          </div>
+                          <div
+                            class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6"
+                          >
+                            <div
+                              id="shelving-stat-total"
+                              class="text-[oklch(0.546_0.245_262.881)] text-3xl font-bold box-border caret-transparent leading-9 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              4
+                            </div>
+                            <p
+                              id="shelving-stat-total-sub"
+                              class="text-[oklch(0.551_0.027_264.364)] text-xs box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-1"
+                            >
+                              Locations available
+                            </p>
+                          </div>
+                        </div>
+
+                        <!-- Card 2: Available -->
+                        <div
+                          class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.723_0.219_149.579)] border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-2"
+                        >
+                          <div
+                            class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 pb-2 px-6"
+                          >
+                            <h4
+                              class="text-[oklch(0.446_0.03_256.802)] text-sm font-medium items-center box-border caret-transparent gap-x-2 flex leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2"
+                            >
+                              <img
+                                src="https://c.animaapp.com/mltd9ksuMx2CxO/assets/icon-25.svg"
+                                alt="Icon"
+                                class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+                              />
+                              Available
+                            </h4>
+                          </div>
+                          <div
+                            class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6"
+                          >
+                            <div
+                              id="shelving-stat-available"
+                              class="text-[oklch(0.627_0.194_149.214)] text-3xl font-bold box-border caret-transparent leading-9 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              1
+                            </div>
+                            <p
+                              id="shelving-stat-available-sub"
+                              class="text-[oklch(0.551_0.027_264.364)] text-xs box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-1"
+                            >
+                              Empty locations
+                            </p>
+                          </div>
+                        </div>
+
+                        <!-- Card 3: Occupied -->
+                        <div
+                          class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.705_0.213_47.604)] border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-3"
+                        >
+                          <div
+                            class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 pb-2 px-6"
+                          >
+                            <h4
+                              class="text-[oklch(0.446_0.03_256.802)] text-sm font-medium items-center box-border caret-transparent gap-x-2 flex leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2"
+                            >
+                              <img
+                                src="https://c.animaapp.com/mltd9ksuMx2CxO/assets/icon-26.svg"
+                                alt="Icon"
+                                class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+                              />
+                              Occupied
+                            </h4>
+                          </div>
+                          <div
+                            class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6"
+                          >
+                            <div
+                              id="shelving-stat-occupied"
+                              class="text-[oklch(0.646_0.222_41.116)] text-3xl font-bold box-border caret-transparent leading-9 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              3
+                            </div>
+                            <p
+                              id="shelving-stat-occupied-sub"
+                              class="text-[oklch(0.551_0.027_264.364)] text-xs box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-1"
+                            >
+                              Shelves in use
+                            </p>
+                          </div>
+                        </div>
+
+                        <!-- Card 4: Capacity -->
+                        <div
+                          class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.627_0.265_303.9)] border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-4"
+                        >
+                          <div
+                            class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 pb-2 px-6"
+                          >
+                            <h4
+                              class="text-[oklch(0.446_0.03_256.802)] text-sm font-medium items-center box-border caret-transparent gap-x-2 flex leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2"
+                            >
+                              <img
+                                src="https://c.animaapp.com/mltd9ksuMx2CxO/assets/icon-27.svg"
+                                alt="Icon"
+                                class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+                              />
+                              Capacity
+                            </h4>
+                          </div>
+                          <div
+                            class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6"
+                          >
+                            <div
+                              id="shelving-stat-capacity"
+                              class="text-[oklch(0.558_0.288_302.321)] text-3xl font-bold box-border caret-transparent leading-9 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              275
+                            </div>
+                            <p
+                              id="shelving-stat-capacity-sub"
+                              class="text-[oklch(0.551_0.027_264.364)] text-xs box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-1"
+                            >
+                              Total units
+                            </p>
+                          </div>
+                        </div>
+
+                        <!-- Card 5: Utilization -->
+                        <div
+                          class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.656_0.241_354.308)] border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-4"
+                        >
+                          <div
+                            class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 pb-2 px-6"
+                          >
+                            <h4
+                              class="text-[oklch(0.446_0.03_256.802)] text-sm font-medium items-center box-border caret-transparent gap-x-2 flex leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2"
+                            >
+                              <img
+                                src="https://c.animaapp.com/mltd9ksuMx2CxO/assets/icon-28.svg"
+                                alt="Icon"
+                                class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+                              />
+                              Utilization
+                            </h4>
+                          </div>
+                          <div
+                            class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6"
+                          >
+                            <div
+                              id="shelving-stat-utilization"
+                              class="text-[oklch(0.592_0.249_0.584)] text-3xl font-bold box-border caret-transparent leading-9 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              54.5%
+                            </div>
+                            <p
+                              id="shelving-stat-utilization-sub"
+                              class="text-[oklch(0.551_0.027_264.364)] text-xs box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-1"
+                            >
+                              150 / 275 units
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ── Tabs + Table Section ───────────────────────── -->
+                    <div
+                      class="box-border caret-transparent gap-x-2 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 animate-slide-up"
+                      style="animation-delay: 0.5s; animation-fill-mode: both"
+                    >
+                      <!-- ✅ FIX 4: Tab bar scrollable on mobile so tabs don't overflow -->
+                      <div
+                        role="tablist"
+                        class="text-neutral-500 items-center bg-zinc-100 box-border caret-transparent flex h-9 justify-center w-full md:w-fit mb-4 p-[3px] rounded-xl overflow-x-auto"
+                      >
+                        <button
+                          type="button"
+                          role="tab"
+                          onclick="switchTab(0)"
+                          class="tab-button active text-zinc-900 text-sm font-medium items-center bg-white caret-transparent gap-x-1.5 flex basis-[0%] grow h-[calc(100%_-_1px)] justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border px-2 py-1 rounded-xl border-solid border-transparent"
+                        >
+                          Product Locations
+                        </button>
+                        <button
+                          type="button"
+                          role="tab"
+                          onclick="switchTab(1)"
+                          class="tab-button text-zinc-900 text-sm font-medium items-center bg-transparent caret-transparent gap-x-1.5 flex basis-[0%] grow h-[calc(100%_-_1px)] justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border px-2 py-1 rounded-xl border-solid border-transparent"
+                        >
+                          Shelf Management
+                        </button>
+                        <button
+                          type="button"
+                          role="tab"
+                          onclick="switchTab(2)"
+                          class="tab-button text-zinc-900 text-sm font-medium items-center bg-transparent caret-transparent gap-x-1.5 flex basis-[0%] grow h-[calc(100%_-_1px)] justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border px-2 py-1 rounded-xl border-solid border-transparent"
+                        >
+                          Warehouse Map
+                        </button>
+                      </div>
+
+                      <!-- Tab Panel 1: Product Locations -->
+                      <div
+                        role="tabpanel"
+                        id="tab-panel-0"
+                        class="box-border caret-transparent basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-4"
+                      >
+                        <div
+                          class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid"
+                        >
+                          <!-- Panel header + search -->
+                          <div
+                            class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 px-6"
+                          >
+                            <!-- ✅ FIX 5: flex-wrap so search doesn't overflow on mobile -->
+                            <div
+                              class="items-center box-border caret-transparent flex flex-wrap gap-y-3 justify-between outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              <h4
+                                class="font-medium box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                              >
+                                Product Shelf Mappings
+                              </h4>
+                              <div
+                                class="box-border caret-transparent gap-x-2 flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2"
+                              >
+                                <div
+                                  class="relative box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                                >
+                                  <img
+                                    src="https://c.animaapp.com/mltd9ksuMx2CxO/assets/icon-29.svg"
+                                    alt="Icon"
+                                    class="absolute text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4 left-3 top-2/4 -translate-y-1/2"
+                                  />
+                                  <!-- ✅ FIX 6: w-80 → w-full md:w-80 so it fills mobile width -->
+                                  <input
+                                    id="shelving-search"
+                                    placeholder="Search products or locations..."
+                                    value=""
+                                    class="text-base backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] box-border caret-transparent flex h-9 leading-6 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full md:w-80 border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.6)] pl-10 pr-3 py-1 rounded-lg border-solid md:text-sm md:leading-5"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Table -->
+                          <div
+                            class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6"
+                          >
+                            <!-- ✅ FIX 7: table-scroll-wrapper + min-width so table scrolls on mobile -->
+                            <div class="table-scroll-wrapper">
+                              <div
+                                class="relative box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full overflow-auto"
+                              >
+                                <table
+                                  class="text-sm caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full border-collapse"
+                                  style="min-width: 800px"
+                                >
+                                  <thead
+                                    class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                                  >
+                                    <tr
+                                      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] align-middle border-b border-solid border-black/10"
+                                    >
+                                      <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Product</th>
+                                      <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">SKU</th>
+                                      <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Shelf Location</th>
+                                      <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Zone</th>
+                                      <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Quantity</th>
+                                      <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Temperature</th>
+                                      <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Primary</th>
+                                      <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Last Restocked</th>
+                                      <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Actions</th>
+                                    </tr>
+                                  </thead>
+                                  <!-- Populated dynamically by InventoryData.js -->
+                                  <tbody
+                                    id="shelving-tbody"
+                                    class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                                  ></tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Tab Panel 2: Shelf Management (hidden) -->
+                      <div
+                        role="tabpanel"
+                        id="tab-panel-1"
+                        class="box-border caret-transparent hidden basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-4"
+                      ></div>
+
+                      <!-- Tab Panel 3: Warehouse Map (hidden) -->
+                      <div
+                        role="tabpanel"
+                        id="tab-panel-2"
+                        class="box-border caret-transparent hidden basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                      ></div>
+                    </div>
+                  </div>
+                </main>
+              </div>
+            </div>
+
+            <section
+              aria-label="Notifications alt+T"
+              class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+            ></section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ── Mobile sidebar toggle ── */
+      function toggleSidebar() {
+        var sidebar = document.getElementById("main-sidebar");
+        var overlay = document.getElementById("sidebar-overlay");
+        if (sidebar) sidebar.classList.toggle("open");
+        if (overlay) overlay.classList.toggle("active");
+      }
+
+      /* ── Tab switching ── */
+      function switchTab(index) {
+        var tabs   = document.querySelectorAll(".tab-button");
+        var panels = document.querySelectorAll('[role="tabpanel"]');
+
+        tabs.forEach(function (tab, i) {
+          if (i === index) {
+            tab.classList.add("active", "bg-white");
+            tab.classList.remove("bg-transparent");
+          } else {
+            tab.classList.remove("active", "bg-white");
+            tab.classList.add("bg-transparent");
+          }
+        });
+
+        panels.forEach(function (panel, i) {
+          if (i === index) {
+            panel.classList.remove("hidden");
+          } else {
+            panel.classList.add("hidden");
+          }
+        });
+      }
+    </script>
+
+    <!-- Shared component loader (header + sidebar) -->
+    <script src="components.js"></script>
+
+    <!-- Shared product/shelving data + renderer (extends InventoryData.js) -->
+    <script src="InventoryData.js"></script>
+  </body>
+</html>

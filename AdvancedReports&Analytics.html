@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Reports &amp; Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        content: [],
+        theme: {
+          extend: {
+            fontFamily: {
+              ui_sans_serif: ["ui-sans-serif","system-ui","sans-serif","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"],
+              ui_monospace: ["ui-monospace","SFMono-Regular","Menlo","Monaco","Consolas","Liberation Mono","Courier New","monospace"],
+            },
+            animation: {
+              "fade-in":   "fadeIn  0.6s ease-out",
+              "slide-up":  "slideUp 0.6s ease-out",
+              "slide-down":"slideDown 0.3s ease-out",
+              "scale-in":  "scaleIn 0.4s ease-out",
+              "count-up":  "countUp 1.5s ease-out",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%":   { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%":   { opacity: "0", transform: "translateY(20px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              slideDown: {
+                "0%":   { opacity: "0", transform: "translateY(-10px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              scaleIn: {
+                "0%":   { opacity: "0", transform: "scale(0.95)" },
+                "100%": { opacity: "1", transform: "scale(1)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <style>
+      /* ── Entrance animations ─────────────────────────────────────────── */
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to   { opacity: 1; transform: scale(1); }
+      }
+
+      .animate-fade-in   { animation: fadeIn  0.6s ease-out; }
+      .animate-slide-up  { animation: slideUp 0.6s ease-out; }
+      .animate-slide-down{ animation: slideDown 0.3s ease-out; }
+      .animate-scale-in  { animation: scaleIn 0.4s ease-out; }
+
+      .stagger-1 { animation-delay: 0.1s; animation-fill-mode: both; }
+      .stagger-2 { animation-delay: 0.2s; animation-fill-mode: both; }
+      .stagger-3 { animation-delay: 0.3s; animation-fill-mode: both; }
+      .stagger-4 { animation-delay: 0.4s; animation-fill-mode: both; }
+
+      .hover-lift:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+      }
+      .hover-scale:hover { transform: scale(1.02); }
+
+      .sidebar-item { transition: all 0.2s ease; }
+      .sidebar-item:hover { background-color: rgba(0,0,0,0.03); }
+      .sidebar-item.active { background-color: rgba(14,165,233,0.1); }
+
+      .tab-button { transition: all 0.2s ease; }
+      .tab-button:not(.active):hover { background-color: rgba(0,0,0,0.03); }
+
+      .progress-bar { transition: width 1s ease-out; }
+
+      input:focus,
+      button:focus {
+        outline: 2px solid rgba(14,165,233,0.5);
+        outline-offset: 2px;
+      }
+
+      #sidebar-overlay{display:none}
+      #sidebar-overlay.active{display:block}
+      @media(max-width:767px){
+        #main-sidebar{position:fixed;top:3.5rem;left:0;bottom:0;z-index:40;transform:translateX(-100%);transition:transform .2s ease}
+        #main-sidebar.open{transform:translateX(0)}
+        #sidebar-overlay{position:fixed;inset:0;top:3.5rem;background:rgba(0,0,0,.3);z-index:39}
+      }
+      [role="tabpanel"].hidden{display:none!important}
+      [role="tabpanel"]:not(.hidden){display:block!important}
+      .chart-wrap{position:relative;width:100%;min-height:260px}
+      .chart-wrap canvas{width:100%!important;max-height:300px}
+
+
+
+      @media (min-width: 768px) {
+        #main-sidebar {
+          width: 4rem !important;
+          transition: width 0.25s ease;
+          overflow: visible;
+        }
+        #main-sidebar nav {
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+        #main-sidebar.expanded {
+          width: 14rem !important;
+        }
+        #main-sidebar.expanded .sidebar-nav-link {
+          width: auto;
+          justify-content: flex-start;
+          padding-left: 0.5rem;
+          padding-right: 0.5rem;
+          margin-left: 0;
+          margin-right: 0;
+        }
+        #main-sidebar.expanded .sidebar-nav-label {
+          display: inline !important;
+        }
+        #main-sidebar.expanded .sidebar-section-label {
+          display: block !important;
+        }
+        #main-sidebar.expanded #sidebar-expand-icon {
+          transform: scaleX(-1);
+        }
+      }
+    </style>
+    <script>
+      window.PAGE_ID   = "reports";
+      window.ASSET_BASE = "https://c.animaapp.com/mlusi31a23OTLI/assets";
+    </script>
+  </head>
+  <body class="text-zinc-900 text-base not-italic normal-nums font-normal accent-auto bg-zinc-100 box-border caret-transparent block tracking-[normal] leading-6 list-outside list-disc outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-auto text-start indent-[0px] normal-case visible border-separate font-ui_sans_serif">
+    <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+      <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+        <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+          <div class="relative box-border caret-transparent basis-0 grow shrink-0 min-h-px min-w-px outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full" style="height:100vh">
+            <div class="bg-[linear-gradient(to_right_bottom,oklch(0.985_0.002_247.839)_0%,oklch(0.967_0.003_264.542)_50%,oklch(0.985_0.002_247.839)_100%)] box-border caret-transparent flex flex-col h-full outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+
+              <!-- HEADER slot -->
+              <div id="header-slot"></div>
+
+              <!-- Mobile sidebar overlay -->
+              <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+              <div class="box-border caret-transparent flex basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] overflow-hidden">
+
+                <!-- SIDEBAR slot -->
+                <div id="sidebar-slot"></div>
+
+                <!-- MAIN CONTENT -->
+                <main class="bg-[oklch(0.985_0.002_247.839)] box-border caret-transparent basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] overflow-auto">
+                  <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] p-6">
+
+                    <!-- Page heading -->
+                    <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-6 animate-slide-up">
+                      <div class="items-center box-border caret-transparent flex justify-between outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-4">
+                        <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+                         
+                          <h2
+                          class="text-[oklch(0.21_0.034_264.665)] text-2xl font-bold items-center box-border caret-transparent gap-x-2 flex leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2"
+                        >
+                          <img
+                            src="https://c.animaapp.com/mlusi31a23OTLI/assets/icon-21.svg"
+                            alt="Icon"
+                            class="text-[oklch(0.546_0.245_262.881)] box-border caret-transparent h-7 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-7"
+                          />
+                          Advanced Reports &amp; Analytics
+                        </h2>
+                          <p class="text-[oklch(0.446_0.03_256.802)] text-sm box-border caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-1">Comprehensive business insights and downloadable reports</p>
+                        </div>
+                       
+                      </div>
+                     <!-- Date Range Filter Card -->
+<div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] mb-6 rounded-xl border-solid">
+  <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] p-6">
+    <div class="items-end box-border caret-transparent gap-x-4 flex flex-wrap outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-4">
+      <div class="box-border caret-transparent basis-[0%] grow min-w-[200px] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+        <label class="text-sm font-medium items-center box-border caret-transparent gap-x-2 flex leading-[14px] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 mb-1">Date Range</label>
+        <button type="button" role="combobox" class="text-sm font-medium items-center bg-stone-50/70 caret-transparent gap-x-2 flex h-9 justify-between leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap w-full border px-3 py-2 rounded-md border-solid border-transparent">
+          <span class="items-center box-border caret-transparent gap-x-2 flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none gap-y-2 text-nowrap overflow-hidden">All Time</span>
+          <img src="https://c.animaapp.com/mlusi31a23OTLI/assets/icon-22.svg" alt="Icon" class="text-neutral-500 box-border caret-transparent shrink-0 h-4 opacity-50 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4" />
+        </button>
+      </div>
+      <button class="text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-2 flex shrink-0 h-9 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-3 py-2 rounded-lg border-solid" onclick="window.print()">
+        <img src="https://c.animaapp.com/mlusi31a23OTLI/assets/icon-23.svg" alt="Icon" class="box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4" />
+        Print
+      </button>
+    </div>
+    <div class="text-[oklch(0.446_0.03_256.802)] text-sm box-border caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-4">
+      Showing data from
+      <strong id="report-date-from" class="font-bold box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">Jan 1, 1970</strong>
+      to
+      <strong id="report-date-to" class="font-bold box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">Feb 20, 2026</strong>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- ─── KPI Cards (4) ─── -->
+                    <div class="box-border caret-transparent gap-x-4 grid grid-cols-[repeat(1,minmax(0px,1fr))] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-4 mb-6 md:grid-cols-[repeat(4,minmax(0px,1fr))]">
+
+                      <!-- Total Revenue -->
+                      <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.723_0.219_149.579)] border-l-4 border-b border-r border-t border-solid transition-all hover-lift animate-slide-up stagger-1">
+                        <div class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 pb-2 px-6">
+                          <h4 class="text-[oklch(0.446_0.03_256.802)] text-sm font-medium items-center box-border caret-transparent gap-x-2 flex leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2">
+                            <img src="https://c.animaapp.com/mlusi31a23OTLI/assets/icon-24.svg" alt="Icon" class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4" />
+                            Total Revenue
+                          </h4>
+                        </div>
+                        <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6">
+                          <div id="kpi-total-revenue" class="text-[oklch(0.627_0.194_149.214)] text-3xl font-bold box-border caret-transparent leading-9 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">£20163.34</div>
+                          <p id="kpi-total-revenue-sub" class="text-[oklch(0.551_0.027_264.364)] text-xs box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-1">Sales: £0.00 | Invoices: £20163.34</p>
+                        </div>
+                      </div>
+
+                      <!-- Transactions -->
+                      <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.623_0.214_259.815)] border-l-4 border-b border-r border-t border-solid transition-all hover-lift animate-slide-up stagger-2">
+                        <div class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 pb-2 px-6">
+                          <h4 class="text-[oklch(0.446_0.03_256.802)] text-sm font-medium items-center box-border caret-transparent gap-x-2 flex leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2">
+                            <img src="https://c.animaapp.com/mlusi31a23OTLI/assets/icon-25.svg" alt="Icon" class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4" />
+                            Transactions
+                          </h4>
+                        </div>
+                        <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6">
+                          <div id="kpi-transactions" class="text-[oklch(0.546_0.245_262.881)] text-3xl font-bold box-border caret-transparent leading-9 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">8</div>
+                          <p id="kpi-transactions-sub" class="text-[oklch(0.551_0.027_264.364)] text-xs box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-1">Sales: 0 | Invoices: 8</p>
+                        </div>
+                      </div>
+
+                      <!-- Gross Profit -->
+                      <!-- Gross Profit -->
+                      <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.627_0.265_303.9)] border-l-4 border-b border-r border-t border-solid transition-all hover-lift animate-slide-up stagger-3">
+                        <div class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 pb-2 px-6">
+                          <h4 class="text-[oklch(0.446_0.03_256.802)] text-sm font-medium items-center box-border caret-transparent gap-x-2 flex leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2">
+                            <img src="https://c.animaapp.com/mlusi31a23OTLI/assets/icon-26.svg" alt="Icon" class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4" />
+                            Gross Profit
+                          </h4>
+                        </div>
+                        <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6">
+                          <div id="kpi-gross-profit" class="text-[oklch(0.558_0.288_302.321)] text-3xl font-bold box-border caret-transparent leading-9 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">£-116021.66</div>
+                          <p id="kpi-gross-profit-sub" class="text-[oklch(0.551_0.027_264.364)] text-xs box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-1">Margin: -575.4%</p>
+                        </div>
+                      </div>
+
+                      <!-- Items Sold -->
+                      <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.705_0.213_47.604)] border-l-4 border-b border-r border-t border-solid transition-all hover-lift animate-slide-up stagger-4">
+                        <div class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 pb-2 px-6">
+                          <h4 class="text-[oklch(0.446_0.03_256.802)] text-sm font-medium items-center box-border caret-transparent gap-x-2 flex leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2">
+                            <img src="https://c.animaapp.com/mlusi31a23OTLI/assets/icon-27.svg" alt="Icon" class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4" />
+                            Items Sold
+                          </h4>
+                        </div>
+                        <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6">
+                          <div id="kpi-items-sold" class="text-[oklch(0.646_0.222_41.116)] text-3xl font-bold box-border caret-transparent leading-9 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">0</div>
+                          <p id="kpi-items-sold-sub" class="text-[oklch(0.551_0.027_264.364)] text-xs box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-1">Avg per transaction: 0.0</p>
+                        </div>
+                      </div>
+
+                    </div><!-- /KPI cards -->
+
+                    <!-- ─── Tab nav ─── -->
+                    <div class="box-border caret-transparent gap-x-2 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 animate-slide-up" style="animation-delay: 0.5s; animation-fill-mode: both">
+                      <div id="reports-tablist" role="tablist" class="text-neutral-500 items-center bg-zinc-100 box-border caret-transparent grid grid-cols-[repeat(7,minmax(0px,1fr))] h-9 justify-center w-full mb-4 p-[3px] rounded-xl">
+                        <button type="button" role="tab" data-tab="sales"      class="tab-btn active-tab text-zinc-900 text-sm font-medium items-center bg-white      caret-transparent gap-x-1.5 flex basis-[0%] grow h-[calc(100%_-_1px)] justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border px-2 py-1 rounded-xl border-solid border-transparent">Sales</button>
+                        <button type="button" role="tab" data-tab="products"   class="tab-btn text-zinc-900 text-sm font-medium items-center bg-transparent caret-transparent gap-x-1.5 flex basis-[0%] grow h-[calc(100%_-_1px)] justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border px-2 py-1 rounded-xl border-solid border-transparent">Products</button>
+                        <button type="button" role="tab" data-tab="inventory"  class="tab-btn text-zinc-900 text-sm font-medium items-center bg-transparent caret-transparent gap-x-1.5 flex basis-[0%] grow h-[calc(100%_-_1px)] justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border px-2 py-1 rounded-xl border-solid border-transparent">Inventory</button>
+                        <button type="button" role="tab" data-tab="customers"  class="tab-btn text-zinc-900 text-sm font-medium items-center bg-transparent caret-transparent gap-x-1.5 flex basis-[0%] grow h-[calc(100%_-_1px)] justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border px-2 py-1 rounded-xl border-solid border-transparent">Customers</button>
+                        <button type="button" role="tab" data-tab="invoices"   class="tab-btn text-zinc-900 text-sm font-medium items-center bg-transparent caret-transparent gap-x-1.5 flex basis-[0%] grow h-[calc(100%_-_1px)] justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border px-2 py-1 rounded-xl border-solid border-transparent">Invoices</button>
+                        <button type="button" role="tab" data-tab="financial"  class="tab-btn text-zinc-900 text-sm font-medium items-center bg-transparent caret-transparent gap-x-1.5 flex basis-[0%] grow h-[calc(100%_-_1px)] justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border px-2 py-1 rounded-xl border-solid border-transparent">Financial</button>
+                        <button type="button" role="tab" data-tab="tax"        class="tab-btn text-zinc-900 text-sm font-medium items-center bg-transparent caret-transparent gap-x-1.5 flex basis-[0%] grow h-[calc(100%_-_1px)] justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border px-2 py-1 rounded-xl border-solid border-transparent">Tax</button>
+                      </div>
+
+                      <!-- ═══ SALES TAB ═══ -->
+                      <div id="tabpanel-sales" role="tabpanel" class="box-border caret-transparent basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-4">
+                        <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid">
+                          <div class="items-start box-border caret-transparent gap-x-1.5 grid auto-rows-min grid-rows-[auto_auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 pt-6 px-6">
+                            <div class="items-center box-border caret-transparent flex justify-between outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+                              <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+                                <h4 class="font-medium box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">Sales Report</h4>
+                                <p class="text-neutral-500 box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">Detailed breakdown of all sales transactions</p>
+                              </div>
+                              <div class="box-border caret-transparent gap-x-2 flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2">
+                                <button id="sales-download-csv" class="text-white text-sm font-medium items-center bg-sky-600 shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] caret-transparent gap-x-2 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap px-2.5 py-0 rounded-lg">
+                                  <img src="https://c.animaapp.com/mlusi31a23OTLI/assets/icon-28.svg" alt="Icon" class="box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4" />
+                                  Download CSV
+                                </button>
+                                <button id="sales-download-json" class="text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-2 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2.5 py-0 rounded-lg border-solid">
+                                  <img src="https://c.animaapp.com/mlusi31a23OTLI/assets/icon-29.svg" alt="Icon" class="box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4" />
+                                  Download JSON
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6 px-6">
+                            <!-- Sales mini-KPIs -->
+                            <div class="box-border caret-transparent gap-x-4 grid grid-cols-[repeat(1,minmax(0px,1fr))] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-4 mb-6 md:grid-cols-[repeat(3,minmax(0px,1fr))]">
+                              <div class="backdrop-blur-xl bg-[oklch(0.97_0.014_254.604)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border rounded-xl border-solid border-[oklch(0.882_0.059_254.128)]">
+                                <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] p-6">
+                                  <div id="sales-total-transactions" class="text-[oklch(0.488_0.243_264.376)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">0</div>
+                                  <p class="text-[oklch(0.546_0.245_262.881)] text-sm box-border caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">Total Transactions</p>
+                                </div>
+                              </div>
+                              <div class="backdrop-blur-xl bg-[oklch(0.982_0.018_155.826)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border rounded-xl border-solid border-[oklch(0.925_0.084_155.995)]">
+                                <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] p-6">
+                                  <div id="sales-total-revenue-mini" class="text-[oklch(0.527_0.154_150.069)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">£0.00</div>
+                                  <p class="text-[oklch(0.627_0.194_149.214)] text-sm box-border caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">Total Revenue</p>
+                                </div>
+                              </div>
+                              <div class="backdrop-blur-xl bg-[oklch(0.977_0.014_308.299)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border rounded-xl border-solid border-[oklch(0.902_0.063_306.703)]">
+                                <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] p-6">
+                                  <div id="sales-avg-transaction" class="text-[oklch(0.496_0.265_301.924)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">£0.00</div>
+                                  <p class="text-[oklch(0.558_0.288_302.321)] text-sm box-border caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">Average Transaction</p>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Payment Methods Breakdown -->
+                            <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-4">
+                              <h3 class="text-lg font-semibold box-border caret-transparent leading-[27px] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-2">Payment Methods Breakdown</h3>
+                              <div id="payment-methods-grid" class="box-border caret-transparent gap-x-2 grid grid-cols-[repeat(2,minmax(0px,1fr))] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 md:grid-cols-[repeat(4,minmax(0px,1fr))]"></div>
+                            </div>
+
+                            <!-- Monthly Sales Chart -->
+                            <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-4">
+                              <h3 class="text-lg font-semibold box-border caret-transparent leading-[27px] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-2">Monthly Sales Trend</h3>
+                              <div class="chart-wrap"><canvas id="chart-monthly-sales"></canvas></div>
+                            </div>
+
+                            <!-- Sales Table -->
+                            <div class="relative box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full overflow-auto">
+                              <table class="text-sm caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full border-collapse">
+                                <thead class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+                                  <tr class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] align-middle border-b border-solid border-black/10">
+                                    <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Date &amp; Time</th>
+                                    <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Customer</th>
+                                    <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Items</th>
+                                    <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Payment Method</th>
+                                    <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Total</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="sales-transactions-tbody" class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"></tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- ═══ PRODUCTS TAB ═══ -->
+                      <div id="tabpanel-products" role="tabpanel" class="hidden box-border caret-transparent basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-4">
+                        <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid p-6">
+                          <h4 class="font-medium box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-1">Products Report</h4>
+                          <p class="text-neutral-500 box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-6">Top selling products and performance analytics</p>
+                          <h3 class="text-lg font-semibold box-border caret-transparent leading-[27px] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-2">Top Selling Products</h3>
+                          <div class="chart-wrap mb-6"><canvas id="chart-top-products"></canvas></div>
+                          <h3 class="text-lg font-semibold box-border caret-transparent leading-[27px] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-2">Category Value Breakdown</h3>
+                          <div class="chart-wrap mb-6"><canvas id="chart-category-breakdown"></canvas></div>
+                          <div class="relative box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full overflow-auto">
+                            <table class="text-sm caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full border-collapse">
+                              <thead class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+                                <tr class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] align-middle border-b border-solid border-black/10">
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Product</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Category</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Stock</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Unit Price</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Total Value</th>
+                                </tr>
+                              </thead>
+                              <tbody id="products-report-tbody" class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"></tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- ═══ INVENTORY TAB ═══ -->
+                      <div id="tabpanel-inventory" role="tabpanel" class="hidden box-border caret-transparent basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-4">
+                        <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid p-6">
+                          <h4 class="font-medium box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-1">Inventory Report</h4>
+                          <p class="text-neutral-500 box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-6">Stock levels, low stock alerts, and category totals</p>
+                          <div class="box-border caret-transparent gap-x-4 grid grid-cols-[repeat(1,minmax(0px,1fr))] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-4 mb-6 md:grid-cols-[repeat(3,minmax(0px,1fr))]">
+                            <div class="backdrop-blur-xl bg-[oklch(0.97_0.014_254.604)] border rounded-xl border-solid border-[oklch(0.882_0.059_254.128)] p-6"><div id="inv-total-products" class="text-[oklch(0.488_0.243_264.376)] text-2xl font-bold leading-8">0</div><p class="text-[oklch(0.546_0.245_262.881)] text-sm leading-5 mt-1">Total Products</p></div>
+                            <div class="backdrop-blur-xl bg-[oklch(0.982_0.018_155.826)] border rounded-xl border-solid border-[oklch(0.925_0.084_155.995)] p-6"><div id="inv-total-stock" class="text-[oklch(0.527_0.154_150.069)] text-2xl font-bold leading-8">0</div><p class="text-[oklch(0.627_0.194_149.214)] text-sm leading-5 mt-1">Total Stock Units</p></div>
+                            <div class="backdrop-blur-xl bg-[oklch(0.977_0.025_12.42)] border rounded-xl border-solid border-[oklch(0.936_0.032_17.717)] p-6"><div id="inv-low-stock" class="text-[oklch(0.577_0.245_27.325)] text-2xl font-bold leading-8">0</div><p class="text-red-500 text-sm leading-5 mt-1">Low Stock Alerts</p></div>
+                          </div>
+                          <h3 class="text-lg font-semibold box-border caret-transparent leading-[27px] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-2">Low Stock Products</h3>
+                          <div class="relative box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full overflow-auto mb-6">
+                            <table class="text-sm caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full border-collapse">
+                              <thead class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+                                <tr class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] align-middle border-b border-solid border-black/10">
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Product</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Category</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Stock</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Unit Price</th>
+                                </tr>
+                              </thead>
+                              <tbody id="low-stock-tbody" class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"></tbody>
+                            </table>
+                          </div>
+                          <h3 class="text-lg font-semibold box-border caret-transparent leading-[27px] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-2">Stock by Category</h3>
+                          <div class="chart-wrap"><canvas id="chart-stock-by-category"></canvas></div>
+                        </div>
+                      </div>
+
+                      <!-- ═══ CUSTOMERS TAB ═══ -->
+                      <div id="tabpanel-customers" role="tabpanel" class="hidden box-border caret-transparent basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-4">
+                        <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid p-6">
+                          <h4 class="font-medium box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-1">Customers Report</h4>
+                          <p class="text-neutral-500 box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-6">Customer growth, breakdown by type, and credit overview</p>
+                          <div class="box-border caret-transparent gap-x-4 grid grid-cols-[repeat(1,minmax(0px,1fr))] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-4 mb-6 md:grid-cols-[repeat(4,minmax(0px,1fr))]">
+                            <div class="backdrop-blur-xl bg-[oklch(0.97_0.014_254.604)] border rounded-xl border-solid border-[oklch(0.882_0.059_254.128)] p-6"><div id="cust-total" class="text-[oklch(0.488_0.243_264.376)] text-2xl font-bold leading-8">0</div><p class="text-[oklch(0.546_0.245_262.881)] text-sm leading-5 mt-1">Total Customers</p></div>
+                            <div class="backdrop-blur-xl bg-[oklch(0.982_0.018_155.826)] border rounded-xl border-solid border-[oklch(0.925_0.084_155.995)] p-6"><div id="cust-wholesalers" class="text-[oklch(0.527_0.154_150.069)] text-2xl font-bold leading-8">0</div><p class="text-[oklch(0.627_0.194_149.214)] text-sm leading-5 mt-1">Wholesalers</p></div>
+                            <div class="backdrop-blur-xl bg-[oklch(0.977_0.014_308.299)] border rounded-xl border-solid border-[oklch(0.902_0.063_306.703)] p-6"><div id="cust-traders" class="text-[oklch(0.496_0.265_301.924)] text-2xl font-bold leading-8">0</div><p class="text-[oklch(0.558_0.288_302.321)] text-sm leading-5 mt-1">Traders</p></div>
+                            <div class="backdrop-blur-xl bg-zinc-50 border rounded-xl border-solid border-black/10 p-6"><div id="cust-retailers" class="text-zinc-700 text-2xl font-bold leading-8">0</div><p class="text-zinc-500 text-sm leading-5 mt-1">Retailers</p></div>
+                          </div>
+                          <h3 class="text-lg font-semibold box-border caret-transparent leading-[27px] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-2">Customer Growth by Join Date</h3>
+                          <div class="chart-wrap mb-6"><canvas id="chart-customer-growth"></canvas></div>
+                          <h3 class="text-lg font-semibold box-border caret-transparent leading-[27px] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-2">Customer Type Distribution</h3>
+                          <div class="chart-wrap" style="max-height:280px"><canvas id="chart-customer-types"></canvas></div>
+                        </div>
+                      </div>
+
+                      <!-- ═══ INVOICES TAB ═══ -->
+                      <div id="tabpanel-invoices" role="tabpanel" class="hidden box-border caret-transparent basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-4">
+                        <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid p-6">
+                          <h4 class="font-medium box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-1">Invoices Report</h4>
+                          <p class="text-neutral-500 box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-6">Invoice totals, outstanding balances, and status breakdown</p>
+                          <div class="box-border caret-transparent gap-x-4 grid grid-cols-[repeat(1,minmax(0px,1fr))] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-4 mb-6 md:grid-cols-[repeat(3,minmax(0px,1fr))]">
+                            <div class="backdrop-blur-xl bg-[oklch(0.97_0.014_254.604)] border rounded-xl border-solid border-[oklch(0.882_0.059_254.128)] p-6"><div id="inv-count" class="text-[oklch(0.488_0.243_264.376)] text-2xl font-bold leading-8">0</div><p class="text-[oklch(0.546_0.245_262.881)] text-sm leading-5 mt-1">Total Invoices</p></div>
+                            <div class="backdrop-blur-xl bg-[oklch(0.982_0.018_155.826)] border rounded-xl border-solid border-[oklch(0.925_0.084_155.995)] p-6"><div id="inv-total-value" class="text-[oklch(0.527_0.154_150.069)] text-2xl font-bold leading-8">£0.00</div><p class="text-[oklch(0.627_0.194_149.214)] text-sm leading-5 mt-1">Total Invoice Value</p></div>
+                            <div class="backdrop-blur-xl bg-[oklch(0.977_0.014_308.299)] border rounded-xl border-solid border-[oklch(0.902_0.063_306.703)] p-6"><div id="inv-avg-value" class="text-[oklch(0.496_0.265_301.924)] text-2xl font-bold leading-8">£0.00</div><p class="text-[oklch(0.558_0.288_302.321)] text-sm leading-5 mt-1">Avg Invoice Value</p></div>
+                          </div>
+                          <h3 class="text-lg font-semibold leading-[27px] mb-2">Invoice Status Breakdown</h3>
+                          <div class="chart-wrap mb-6" style="max-height:280px"><canvas id="chart-invoice-status"></canvas></div>
+                          <div class="relative box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full overflow-auto">
+                            <table class="text-sm caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full border-collapse">
+                              <thead class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+                                <tr class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] align-middle border-b border-solid border-black/10">
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Invoice #</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Customer</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Date</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Status</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody id="invoices-report-tbody" class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"></tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- ═══ FINANCIAL TAB ═══ -->
+                      <div id="tabpanel-financial" role="tabpanel" class="hidden box-border caret-transparent basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-4">
+                        <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid p-6">
+                          <h4 class="font-medium box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-1">Financial Report</h4>
+                          <p class="text-neutral-500 box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-6">Revenue vs. purchase cost and net profit analysis</p>
+                          <div class="box-border caret-transparent gap-x-4 grid grid-cols-[repeat(1,minmax(0px,1fr))] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-4 mb-6 md:grid-cols-[repeat(4,minmax(0px,1fr))]">
+                            <div class="backdrop-blur-xl bg-[oklch(0.982_0.018_155.826)] border rounded-xl border-solid border-[oklch(0.925_0.084_155.995)] p-6"><div id="fin-revenue" class="text-[oklch(0.527_0.154_150.069)] text-2xl font-bold leading-8">£0.00</div><p class="text-[oklch(0.627_0.194_149.214)] text-sm leading-5 mt-1">Total Revenue</p></div>
+                            <div class="backdrop-blur-xl bg-[oklch(0.977_0.025_12.42)] border rounded-xl border-solid border-[oklch(0.936_0.032_17.717)] p-6"><div id="fin-purchase-cost" class="text-[oklch(0.577_0.245_27.325)] text-2xl font-bold leading-8">£0.00</div><p class="text-red-500 text-sm leading-5 mt-1">Total Purchase Cost</p></div>
+                            <div class="backdrop-blur-xl bg-[oklch(0.977_0.014_308.299)] border rounded-xl border-solid border-[oklch(0.902_0.063_306.703)] p-6"><div id="fin-net-profit" class="text-[oklch(0.496_0.265_301.924)] text-2xl font-bold leading-8">£0.00</div><p class="text-[oklch(0.558_0.288_302.321)] text-sm leading-5 mt-1">Net Profit</p></div>
+                            <div class="backdrop-blur-xl bg-[oklch(0.97_0.014_254.604)] border rounded-xl border-solid border-[oklch(0.882_0.059_254.128)] p-6"><div id="fin-margin" class="text-[oklch(0.488_0.243_264.376)] text-2xl font-bold leading-8">0%</div><p class="text-[oklch(0.546_0.245_262.881)] text-sm leading-5 mt-1">Profit Margin</p></div>
+                          </div>
+                          <h3 class="text-lg font-semibold leading-[27px] mb-2">Revenue vs Purchase Cost</h3>
+                          <div class="chart-wrap"><canvas id="chart-revenue-vs-cost"></canvas></div>
+                        </div>
+                      </div>
+
+                      <!-- ═══ TAX TAB ═══ -->
+                      <div id="tabpanel-tax" role="tabpanel" class="hidden box-border caret-transparent basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+                        <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid p-6">
+                          <h4 class="font-medium box-border caret-transparent leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-1">Tax Report</h4>
+                          <p class="text-neutral-500 box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-6">VAT and tax collected across all transactions</p>
+                          <div class="box-border caret-transparent gap-x-4 grid grid-cols-[repeat(1,minmax(0px,1fr))] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-4 mb-6 md:grid-cols-[repeat(3,minmax(0px,1fr))]">
+                            <div class="backdrop-blur-xl bg-[oklch(0.97_0.014_254.604)] border rounded-xl border-solid border-[oklch(0.882_0.059_254.128)] p-6"><div id="tax-total-collected" class="text-[oklch(0.488_0.243_264.376)] text-2xl font-bold leading-8">£0.00</div><p class="text-[oklch(0.546_0.245_262.881)] text-sm leading-5 mt-1">Total VAT Collected</p></div>
+                            <div class="backdrop-blur-xl bg-[oklch(0.982_0.018_155.826)] border rounded-xl border-solid border-[oklch(0.925_0.084_155.995)] p-6"><div id="tax-taxable-revenue" class="text-[oklch(0.527_0.154_150.069)] text-2xl font-bold leading-8">£0.00</div><p class="text-[oklch(0.627_0.194_149.214)] text-sm leading-5 mt-1">Taxable Revenue</p></div>
+                            <div class="backdrop-blur-xl bg-[oklch(0.977_0.014_308.299)] border rounded-xl border-solid border-[oklch(0.902_0.063_306.703)] p-6"><div id="tax-avg-rate" class="text-[oklch(0.496_0.265_301.924)] text-2xl font-bold leading-8">0%</div><p class="text-[oklch(0.558_0.288_302.321)] text-sm leading-5 mt-1">Effective Tax Rate</p></div>
+                          </div>
+                          <div class="relative box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full overflow-auto">
+                            <table class="text-sm caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full border-collapse">
+                              <thead class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+                                <tr class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] align-middle border-b border-solid border-black/10">
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Invoice #</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Customer</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Net Amount</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Tax Rate</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Tax Amount</th>
+                                  <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Total</th>
+                                </tr>
+                              </thead>
+                              <tbody id="tax-report-tbody" class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"></tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div><!-- /tab section -->
+                  </div><!-- /p-6 -->
+                </main>
+              </div>
+            </div>
+            <section aria-label="Notifications alt+T" class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"></section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleSidebar(){
+        var s=document.getElementById("main-sidebar"),o=document.getElementById("sidebar-overlay");
+        if(s)s.classList.toggle("open");
+        if(o)o.classList.toggle("active");
+      }
+    </script>
+
+    <!-- Shared component loader — must come before data script -->
+    <script src="components.js"></script>
+
+    <!-- Advanced Reports & Analytics dedicated data engine -->
+    <script src="AdvancedReportsData.js"></script>
+  </body>
+</html>

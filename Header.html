@@ -1,0 +1,162 @@
+<header
+  class="sticky top-0 items-center backdrop-blur-2xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_10px_15px_-3px,rgba(0,0,0,0.1)_0px_4px_6px_-4px] box-border caret-transparent gap-x-4 flex h-14 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-4 z-50 border-[oklab(0.928_-0.000571842_-0.00597269_/_0.6)] px-4 border-b border-solid"
+>
+  <div
+    class="absolute bg-[linear-gradient(to_right,oklab(0.623_-0.0378409_-0.210628_/_0.05)_0%,oklab(0.627_0.147802_-0.219953_/_0.05)_50%,oklab(0.656_0.239812_-0.0239026_/_0.05)_100%)] box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none inset-0"
+  ></div>
+
+  <!-- Mobile menu toggle -->
+  <button
+    id="mobile-menu-btn"
+    class="md:hidden relative z-10 items-center flex shrink-0 h-9 w-9 justify-center border rounded-lg border-solid border-[oklch(0.872_0.01_258.338)] bg-white/60 backdrop-blur"
+    onclick="toggleSidebar()"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-4 w-4 text-[oklch(0.551_0.027_264.364)]"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 6h16M4 12h16M4 18h16"
+      />
+    </svg>
+  </button>
+
+  <div
+    class="relative items-center box-border caret-transparent gap-x-2.5 flex shrink-0 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2.5 z-10"
+  >
+    <div
+      class="items-center bg-[linear-gradient(to_right_bottom,oklch(0.623_0.214_259.815)_0%,oklch(0.546_0.245_262.881)_50%,oklch(0.511_0.262_276.966)_100%)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgb(255,255,255)_0px_0px_0px_2px,oklab(0.623_-0.0378409_-0.210628_/_0.3)_0px_10px_15px_-3px,oklab(0.623_-0.0378409_-0.210628_/_0.3)_0px_4px_6px_-4px] box-border caret-transparent flex h-9 justify-center outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-9 rounded-xl"
+    >
+      <img
+        id="header-logo-img"
+        src=""
+        alt="Icon"
+        class="text-white box-border caret-transparent h-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-5"
+      />
+    </div>
+    <div
+      class="box-border caret-transparent hidden min-h-0 min-w-0 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] md:block md:min-h-[auto] md:min-w-[auto]"
+    >
+      <span
+        class="text-transparent font-bold bg-clip-text bg-[linear-gradient(to_right,oklch(0.546_0.245_262.881)_0%,oklch(0.511_0.262_276.966)_100%)] box-border outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+        >BNM Parts</span
+      >
+      <p
+        class="text-[oklch(0.707_0.022_261.325)] text-[10px] box-border caret-transparent leading-[15px] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] -mt-0.5"
+      >
+        Point of Sale
+      </p>
+    </div>
+  </div>
+  <div
+    class="relative items-center box-border caret-transparent gap-x-2 hidden min-h-0 min-w-0 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 z-10 md:flex md:min-h-[auto] md:min-w-[auto]"
+  >
+    <div
+      class="bg-[oklch(0.928_0.006_264.531)] box-border caret-transparent h-6 min-h-0 min-w-0 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-px md:min-h-[auto] md:min-w-[auto]"
+    ></div>
+    <span
+      id="header-page-title"
+      class="text-[oklch(0.373_0.034_259.733)] text-sm font-semibold box-border caret-transparent inline leading-5 min-h-0 min-w-0 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] md:block md:min-h-[auto] md:min-w-[auto]"
+    ></span>
+  </div>
+
+  <!-- New Sale button: only shown on non-New-Sale pages -->
+  <div
+    id="header-new-sale-btn-wrap"
+    class="relative box-border caret-transparent hidden min-h-0 min-w-0 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] z-10 md:block md:min-h-[auto] md:min-w-[auto]"
+  >
+    <a
+      href="/index.html"
+      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+      ><button
+        class="text-white text-sm font-medium items-center bg-transparent bg-[linear-gradient(to_right,oklch(0.623_0.214_259.815)_0%,oklch(0.546_0.245_262.881)_100%)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_4px_6px_-1px,rgba(0,0,0,0.1)_0px_2px_4px_-2px] caret-transparent gap-x-1.5 inline-flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap px-2.5 py-0 rounded-lg"
+      >
+        <img
+          id="header-new-sale-icon"
+          src=""
+          alt="Icon"
+          class="box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
+        />
+        New Sale
+      </button>
+    </a>
+  </div>
+
+  <div
+    class="relative items-center box-border caret-transparent gap-x-2 flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 z-10 ml-auto"
+  >
+    <button
+      class="text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] caret-transparent gap-x-2 hidden shrink-0 h-8 justify-center leading-5 min-h-0 min-w-[180px] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border px-2.5 py-0 rounded-lg border-solid border-[oklch(0.872_0.01_258.338)] md:flex md:min-h-[auto]"
+    >
+      <img
+        id="header-search-icon"
+        src=""
+        alt="Icon"
+        class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
+      />
+      <span
+        class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent inline min-h-0 min-w-0 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap md:block md:min-h-[auto] md:min-w-[auto]"
+        >Search...</span
+      >
+      <kbd
+        class="text-[oklch(0.551_0.027_264.364)] text-[10px] items-center bg-[oklch(0.967_0.003_264.542)] box-border caret-transparent gap-x-1 inline-flex h-5 leading-[14.2857px] min-h-0 min-w-0 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none gap-y-1 text-nowrap border ml-auto px-1.5 rounded-bl rounded-br rounded-tl rounded-tr border-solid border-black/10 font-ui_monospace md:flex md:min-h-[auto] md:min-w-[auto]"
+        ><span
+          class="text-xs box-border caret-transparent block leading-4 min-h-0 min-w-0 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap md:min-h-[auto] md:min-w-[auto]"
+          >⌘</span
+        >
+        K</kbd
+      >
+    </button>
+    <button
+      class="text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-2 flex shrink-0 h-9 justify-center leading-5 min-h-[auto] min-w-[auto] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap w-9 border p-0 rounded-lg border-solid border-[oklch(0.872_0.01_258.338)] md:hidden md:min-h-0 md:min-w-0"
+    >
+      <img
+        id="header-search-icon-mobile"
+        src=""
+        alt="Icon"
+        class="text-[oklch(0.551_0.027_264.364)] box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
+      />
+    </button>
+    <a
+      href="/BNMParts.html"
+      target="_blank"
+      class="box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+      ><button
+        class="text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] caret-transparent gap-x-1.5 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border px-2.5 py-0 rounded-lg border-solid border-[oklch(0.872_0.01_258.338)]"
+      >
+        <img
+          id="header-store-icon"
+          src=""
+          alt="Icon"
+          class="text-[oklch(0.546_0.245_262.881)] box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
+        />
+        <span
+          class="box-border caret-transparent hidden min-h-0 min-w-0 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap md:block md:min-h-[auto] md:min-w-[auto]"
+          >Store</span
+        >
+      </button>
+    </a>
+    <button
+      type="button"
+      class="text-sm font-medium items-center bg-transparent caret-transparent gap-x-2 flex shrink-0 h-9 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border p-2 rounded-xl border-solid border-transparent"
+    >
+      <span
+        class="relative shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgb(255,255,255)_0px_0px_0px_2px,rgba(0,0,0,0.1)_0px_4px_6px_-1px,rgba(0,0,0,0.1)_0px_2px_4px_-2px] box-border caret-transparent flex shrink-0 h-7 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-7 overflow-hidden rounded-[3.35544e+07px]"
+        ><span
+          class="text-white text-xs font-bold items-center bg-[linear-gradient(to_right_bottom,oklch(0.623_0.214_259.815)_0%,oklch(0.511_0.262_276.966)_100%)] box-border caret-transparent flex h-full justify-center leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-full rounded-[3.35544e+07px]"
+          >A</span
+        >
+      </span>
+      <span
+        class="text-[oklch(0.373_0.034_259.733)] font-semibold box-border caret-transparent hidden min-h-0 min-w-0 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap ml-2 md:block md:min-h-[auto] md:min-w-[auto]"
+        >Admin User</span
+      >
+    </button>
+  </div>
+</header>

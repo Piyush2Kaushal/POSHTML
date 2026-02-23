@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invoice Templates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        content: [],
+        theme: {
+          extend: {
+            fontFamily: {
+              ui_sans_serif: [
+                "ui-sans-serif",
+                "system-ui",
+                "sans-serif",
+                "Apple Color Emoji",
+                "Segoe UI Emoji",
+                "Segoe UI Symbol",
+                "Noto Color Emoji",
+              ],
+              ui_monospace: [
+                "ui-monospace",
+                "SFMono-Regular",
+                "Menlo",
+                "Monaco",
+                "Consolas",
+                "Liberation Mono",
+                "Courier New",
+                "monospace",
+              ],
+            },
+            animation: {
+              "fade-in":   "fadeIn  0.6s ease-out",
+              "slide-up":  "slideUp 0.6s ease-out",
+              "slide-down":"slideDown 0.3s ease-out",
+              "scale-in":  "scaleIn 0.4s ease-out",
+              "count-up":  "countUp 1.5s ease-out",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%":   { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%":   { opacity: "0", transform: "translateY(20px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              slideDown: {
+                "0%":   { opacity: "0", transform: "translateY(-10px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              scaleIn: {
+                "0%":   { opacity: "0", transform: "scale(0.95)" },
+                "100%": { opacity: "1", transform: "scale(1)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* ── Entrance animations ─────────────────────────────────────────── */
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to   { opacity: 1; transform: scale(1); }
+      }
+
+      .animate-fade-in   { animation: fadeIn  0.6s ease-out; }
+      .animate-slide-up  { animation: slideUp 0.6s ease-out; }
+      .animate-slide-down{ animation: slideDown 0.3s ease-out; }
+      .animate-scale-in  { animation: scaleIn 0.4s ease-out; }
+
+      .stagger-1 { animation-delay: 0.1s; animation-fill-mode: both; }
+      .stagger-2 { animation-delay: 0.2s; animation-fill-mode: both; }
+      .stagger-3 { animation-delay: 0.3s; animation-fill-mode: both; }
+      .stagger-4 { animation-delay: 0.4s; animation-fill-mode: both; }
+
+      .hover-lift:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+      }
+      .hover-scale:hover { transform: scale(1.02); }
+
+      .sidebar-item { transition: all 0.2s ease; }
+      .sidebar-item:hover { background-color: rgba(0,0,0,0.03); }
+      .sidebar-item.active { background-color: rgba(14,165,233,0.1); }
+
+      .tab-button { transition: all 0.2s ease; }
+      .tab-button:not(.active):hover { background-color: rgba(0,0,0,0.03); }
+
+      .progress-bar { transition: width 1s ease-out; }
+
+      input:focus,
+      button:focus {
+        outline: 2px solid rgba(14,165,233,0.5);
+        outline-offset: 2px;
+      }
+
+      /* Mobile sidebar overlay */
+      #sidebar-overlay {
+        display: none;
+      }
+      #sidebar-overlay.active {
+        display: block;
+      }
+      /* Sidebar mobile state */
+      @media (max-width: 767px) {
+        #main-sidebar {
+          position: fixed;
+          top: 3.5rem;
+          left: 0;
+          bottom: 0;
+          z-index: 40;
+          transform: translateX(-100%);
+          transition: transform 0.2s ease;
+        }
+        #main-sidebar.open {
+          transform: translateX(0);
+        }
+        #sidebar-overlay {
+          position: fixed;
+          inset: 0;
+          top: 3.5rem;
+          background: rgba(0, 0, 0, 0.3);
+          z-index: 39;
+        }
+      }
+
+
+      @media (min-width: 768px) {
+        #main-sidebar {
+          width: 4rem !important;
+          transition: width 0.25s ease;
+          overflow: visible;
+        }
+        #main-sidebar nav {
+          overflow-x: hidden;
+          overflow-y: auto;
+        }
+        #main-sidebar.expanded {
+          width: 14rem !important;
+        }
+        #main-sidebar.expanded .sidebar-nav-link {
+          width: auto;
+          justify-content: flex-start;
+          padding-left: 0.5rem;
+          padding-right: 0.5rem;
+          margin-left: 0;
+          margin-right: 0;
+        }
+        #main-sidebar.expanded .sidebar-nav-label {
+          display: inline !important;
+        }
+        #main-sidebar.expanded .sidebar-section-label {
+          display: block !important;
+        }
+        #main-sidebar.expanded #sidebar-expand-icon {
+          transform: scaleX(-1);
+        }
+      }
+    </style>
+
+    <!-- ── Component configuration ───────────────────────────────────── -->
+    <script>
+      window.PAGE_ID = "templates";
+      window.ASSET_BASE = "https://c.animaapp.com/mlun6fsjfLZwOf/assets";
+      /* If components.js lives in a sub-folder, set e.g.: */
+      /* window.COMPONENTS_BASE = "components"; */
+    </script>
+  </head>
+  <body
+    class="text-zinc-900 text-base not-italic normal-nums font-normal accent-auto bg-zinc-100 box-border caret-transparent block tracking-[normal] leading-6 list-outside list-disc outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-auto text-start indent-[0px] normal-case visible border-separate font-ui_sans_serif"
+  >
+    <div
+      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+    >
+      <div
+        class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+      >
+        <div
+          class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+        >
+          <div
+            class="relative box-border caret-transparent basis-0 grow shrink-0 min-h-px min-w-px outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full"
+            style="height: 100vh"
+          >
+            <div
+              class="bg-[linear-gradient(to_right_bottom,oklch(0.985_0.002_247.839)_0%,oklch(0.967_0.003_264.542)_50%,oklch(0.985_0.002_247.839)_100%)] box-border caret-transparent flex flex-col h-full outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+            >
+              <!-- ═══ HEADER (injected by components.js) ═══ -->
+              <div id="header-slot"></div>
+
+              <!-- Sidebar overlay for mobile -->
+              <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+              <div
+                class="box-border caret-transparent flex basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] overflow-hidden"
+              >
+                <!-- ═══ SIDEBAR (injected by components.js) ═══ -->
+                <div id="sidebar-slot"></div>
+
+                <!-- ═══ MAIN CONTENT ═══ -->
+                <main
+                  class="bg-[oklch(0.985_0.002_247.839)] box-border caret-transparent basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] overflow-auto"
+                >
+                  <div
+                    class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] p-6"
+                  >
+                    <div
+                      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-6 animate-slide-up"
+                    >
+                      <div
+                        class="items-center box-border caret-transparent flex justify-between outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mb-4"
+                      >
+                        <div
+                          class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                        >
+                          <h2
+                            class="text-[oklch(0.21_0.034_264.665)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                          >
+                            Invoice Templates
+                          </h2>
+                          <p
+                            class="text-[oklch(0.446_0.03_256.802)] text-sm box-border caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-1"
+                          >
+                            Customize your invoice design and branding
+                          </p>
+                        </div>
+                        <button
+                          id="new-template-btn"
+                          class="text-white text-sm font-medium items-center bg-sky-600 shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] caret-transparent gap-x-2 flex shrink-0 h-9 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap px-3 py-2 rounded-lg"
+                        >
+                          <img
+                            src="https://c.animaapp.com/mlun6fsjfLZwOf/assets/icon-21.svg"
+                            alt="Icon"
+                            class="box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4 mr-2"
+                          />
+                          New Template
+                        </button>
+                      </div>
+
+                      <!-- ═══ TEMPLATE CARDS GRID (dynamically populated by InvoiceTemplatesData.js) ═══ -->
+                      <div
+                        id="templates-grid"
+                        class="box-border caret-transparent gap-x-4 grid grid-cols-[repeat(1,minmax(0px,1fr))] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-4 md:grid-cols-[repeat(3,minmax(0px,1fr))] animate-slide-up"
+                        style="animation-delay: 0.5s; animation-fill-mode: both"
+                      >
+                        <!-- Cards injected here by InvoiceTemplatesData.js -->
+                      </div>
+
+                    </div>
+                  </div>
+                </main>
+              </div>
+            </div>
+            <section
+              aria-label="Notifications alt+T"
+              class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+            ></section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleSidebar() {
+        var sidebar = document.getElementById("main-sidebar");
+        var overlay = document.getElementById("sidebar-overlay");
+        if (sidebar) sidebar.classList.toggle("open");
+        if (overlay) overlay.classList.toggle("active");
+      }
+    </script>
+
+    <!-- Shared component loader (header + sidebar) — must come before data script -->
+    <script src="components.js"></script>
+
+    <!-- Dynamic template card renderer — dedicated file, not merged with any other -->
+    <script src="InvoiceTemplatesData.js"></script>
+  </body>
+</html>
