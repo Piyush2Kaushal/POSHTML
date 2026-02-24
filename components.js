@@ -730,7 +730,7 @@
     }
 
     /* Load header */
-    fetchHTML(resolveComponentPath("/header.html"), function (err, html) {
+    fetchHTML(resolveComponentPath("header.html"), function (err, html) {
       if (err) {
         console.error(err);
         return;
@@ -740,7 +740,7 @@
     });
 
     /* Load sidebar */
-    fetchHTML(resolveComponentPath("/sidebar.html"), function (err, html) {
+    fetchHTML(resolveComponentPath("sidebar.html"), function (err, html) {
       if (err) {
         console.error(err);
         return;
