@@ -1147,7 +1147,7 @@
       },
       function (i) {
         return i.total;
-      }
+      },
     );
   }
 
@@ -1159,7 +1159,7 @@
       },
       function (p) {
         return p.totalCost;
-      }
+      },
     );
   }
 
@@ -1245,7 +1245,8 @@
     setText("kpi-items-sold", String(items));
     setText(
       "kpi-items-sold-sub",
-      "Avg per transaction: " + (count > 0 ? (items / count).toFixed(1) : "0.0")
+      "Avg per transaction: " +
+        (count > 0 ? (items / count).toFixed(1) : "0.0"),
     );
   }
 
@@ -1367,7 +1368,7 @@
           fmt(inv.total) +
           "</td>";
         return tr;
-      }
+      },
     );
   }
 
@@ -1505,7 +1506,7 @@
           fmt(inv.total) +
           "</td>";
         return tr;
-      }
+      },
     );
   }
 

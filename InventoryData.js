@@ -761,7 +761,7 @@ function buildInventoryRow(item, index) {
     tdStock,
     tdStatus,
     tdValue,
-    tdAction
+    tdAction,
   );
   return tr;
 }
@@ -899,7 +899,7 @@ function buildProductRow(item, index) {
     tdRetail,
     tdStock,
     tdValue,
-    tdActions
+    tdActions,
   );
   return tr;
 }
@@ -999,7 +999,7 @@ function buildPricingRow(item, index) {
     tdTrader,
     tdRetail,
     tdMargin,
-    tdAction
+    tdAction,
   );
   return tr;
 }
@@ -1277,7 +1277,7 @@ function buildShelvingRow(item, index) {
     tdTemp,
     tdPrimary,
     tdRestocked,
-    tdAction
+    tdAction,
   );
   return tr;
 }
@@ -1300,7 +1300,7 @@ function renderShelvingTable(filterText) {
         item.sku.toLowerCase().includes(lc) ||
         item.shelfCode.toLowerCase().includes(lc) ||
         item.zone.toLowerCase().includes(lc) ||
-        item.warehouse.toLowerCase().includes(lc)
+        item.warehouse.toLowerCase().includes(lc),
     );
   }
 

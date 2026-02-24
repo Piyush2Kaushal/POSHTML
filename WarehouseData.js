@@ -234,7 +234,7 @@ function renderWarehouseRow(warehouse) {
 function renderWarehouseStats() {
   var totalWarehousesEl = document.getElementById("stat-total-warehouses");
   var totalWarehousesSubEl = document.getElementById(
-    "stat-total-warehouses-sub"
+    "stat-total-warehouses-sub",
   );
   var totalCapacityEl = document.getElementById("stat-total-capacity");
   var totalCapacitySubEl = document.getElementById("stat-total-capacity-sub");
@@ -247,7 +247,7 @@ function renderWarehouseStats() {
     totalWarehousesEl.textContent = warehouseStats.totalWarehouses.count;
     totalWarehousesEl.setAttribute(
       "data-count",
-      warehouseStats.totalWarehouses.count
+      warehouseStats.totalWarehouses.count,
     );
   }
   if (totalWarehousesSubEl)
@@ -257,7 +257,7 @@ function renderWarehouseStats() {
     totalCapacityEl.textContent = warehouseStats.totalCapacity.formatted;
     totalCapacityEl.setAttribute(
       "data-count",
-      warehouseStats.totalCapacity.count
+      warehouseStats.totalCapacity.count,
     );
   }
   if (totalCapacitySubEl)
@@ -267,7 +267,7 @@ function renderWarehouseStats() {
     currentStockEl.textContent = warehouseStats.currentStock.formatted;
     currentStockEl.setAttribute(
       "data-count",
-      warehouseStats.currentStock.count
+      warehouseStats.currentStock.count,
     );
   }
   if (currentStockSubEl)

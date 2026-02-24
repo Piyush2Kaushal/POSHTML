@@ -62,44 +62,98 @@
     </script>
     <style>
       @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
       }
       @keyframes slideUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
       @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
       @keyframes scaleIn {
-        from { opacity: 0; transform: scale(0.95); }
-        to { opacity: 1; transform: scale(1); }
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
       }
 
-      .animate-fade-in    { animation: fadeIn 0.6s ease-out; }
-      .animate-slide-up   { animation: slideUp 0.6s ease-out; }
-      .animate-slide-down { animation: slideDown 0.3s ease-out; }
-      .animate-scale-in   { animation: scaleIn 0.4s ease-out; }
+      .animate-fade-in {
+        animation: fadeIn 0.6s ease-out;
+      }
+      .animate-slide-up {
+        animation: slideUp 0.6s ease-out;
+      }
+      .animate-slide-down {
+        animation: slideDown 0.3s ease-out;
+      }
+      .animate-scale-in {
+        animation: scaleIn 0.4s ease-out;
+      }
 
-      .stagger-1 { animation-delay: 0.1s; animation-fill-mode: both; }
-      .stagger-2 { animation-delay: 0.2s; animation-fill-mode: both; }
-      .stagger-3 { animation-delay: 0.3s; animation-fill-mode: both; }
-      .stagger-4 { animation-delay: 0.4s; animation-fill-mode: both; }
+      .stagger-1 {
+        animation-delay: 0.1s;
+        animation-fill-mode: both;
+      }
+      .stagger-2 {
+        animation-delay: 0.2s;
+        animation-fill-mode: both;
+      }
+      .stagger-3 {
+        animation-delay: 0.3s;
+        animation-fill-mode: both;
+      }
+      .stagger-4 {
+        animation-delay: 0.4s;
+        animation-fill-mode: both;
+      }
 
-      .transition-all { transition: all 0.3s ease; }
+      .transition-all {
+        transition: all 0.3s ease;
+      }
 
       .hover-lift:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.1),
+          0 8px 10px -6px rgba(0, 0, 0, 0.1);
       }
 
-      .hover-scale:hover { transform: scale(1.02); }
+      .hover-scale:hover {
+        transform: scale(1.02);
+      }
 
-      .sidebar-item { transition: all 0.2s ease; }
-      .sidebar-item:hover { background-color: rgba(0,0,0,0.03); }
-      .sidebar-item.active { background-color: rgba(14,165,233,0.1); }
+      .sidebar-item {
+        transition: all 0.2s ease;
+      }
+      .sidebar-item:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+      }
+      .sidebar-item.active {
+        background-color: rgba(14, 165, 233, 0.1);
+      }
 
       /* Mobile sidebar overlay */
       #sidebar-overlay {
@@ -135,8 +189,6 @@
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
       }
-
-
 
       @media (min-width: 768px) {
         #main-sidebar {
@@ -180,9 +232,15 @@
   <body
     class="text-zinc-900 text-base not-italic normal-nums font-normal accent-auto bg-zinc-100 box-border caret-transparent block tracking-[normal] leading-6 list-outside list-disc outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-auto text-start indent-[0px] normal-case visible border-separate font-ui_sans_serif"
   >
-    <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
-      <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
-        <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+    <div
+      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+    >
+      <div
+        class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+      >
+        <div
+          class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+        >
           <div
             class="relative box-border caret-transparent basis-0 grow shrink-0 min-h-px min-w-px outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full"
             style="height: 100vh"
@@ -206,13 +264,16 @@
                 <main
                   class="bg-[oklch(0.985_0.002_247.839)] box-border caret-transparent basis-[0%] grow outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] overflow-auto"
                 >
-                  <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] p-6">
-
+                  <div
+                    class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] p-6"
+                  >
                     <!-- ── Page header row ── -->
                     <div
                       class="items-center box-border caret-transparent gap-x-3 flex flex-wrap justify-between outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-3 mb-4 animate-slide-up"
                     >
-                      <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+                      <div
+                        class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                      >
                         <h2
                           class="text-[oklch(0.21_0.034_264.665)] text-2xl font-bold items-center box-border caret-transparent gap-x-2 flex leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2"
                         >
@@ -223,11 +284,16 @@
                           />
                           Product Management
                         </h2>
-                        <p class="text-[oklch(0.551_0.027_264.364)] text-sm box-border caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-0.5">
-                          Inline editing · advanced bulk operations · import / export · variant management
+                        <p
+                          class="text-[oklch(0.551_0.027_264.364)] text-sm box-border caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] mt-0.5"
+                        >
+                          Inline editing · advanced bulk operations · import /
+                          export · variant management
                         </p>
                       </div>
-                      <div class="box-border caret-transparent gap-x-2 flex flex-wrap outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2">
+                      <div
+                        class="box-border caret-transparent gap-x-2 flex flex-wrap outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2"
+                      >
                         <!-- Import CSV -->
                         <button
                           id="import-csv-btn"
@@ -240,7 +306,11 @@
                           />
                           Import CSV
                         </button>
-                        <input type="file" id="csv-file-input" class="items-baseline bg-transparent box-border caret-transparent hidden outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-ellipsis text-nowrap p-0" />
+                        <input
+                          type="file"
+                          id="csv-file-input"
+                          class="items-baseline bg-transparent box-border caret-transparent hidden outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-ellipsis text-nowrap p-0"
+                        />
                         <!-- Export CSV -->
                         <button
                           id="export-csv-btn"
@@ -273,57 +343,132 @@
                       class="box-border caret-transparent gap-x-3 grid grid-cols-[repeat(2,minmax(0px,1fr))] outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-3 mb-4 md:grid-cols-[repeat(5,minmax(0px,1fr))]"
                     >
                       <!-- Total Products -->
-                      <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.623_0.214_259.815)] border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-1">
-                        <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pt-4 pb-6 px-4">
-                          <div class="text-[oklch(0.546_0.245_262.881)] text-xs font-medium items-center box-border caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 mb-1">
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-27.svg" alt="Icon" class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4" />
+                      <div
+                        class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.623_0.214_259.815)] border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-1"
+                      >
+                        <div
+                          class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pt-4 pb-6 px-4"
+                        >
+                          <div
+                            class="text-[oklch(0.546_0.245_262.881)] text-xs font-medium items-center box-border caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 mb-1"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-27.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+                            />
                             Total Products
                           </div>
-                          <div class="text-[oklch(0.546_0.245_262.881)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]" id="stat-total-products">53</div>
+                          <div
+                            class="text-[oklch(0.546_0.245_262.881)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            id="stat-total-products"
+                          >
+                            53
+                          </div>
                         </div>
                       </div>
 
                       <!-- Categories -->
-                      <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.627_0.265_303.9)] border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-2">
-                        <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pt-4 pb-6 px-4">
-                          <div class="text-[oklch(0.558_0.288_302.321)] text-xs font-medium items-center box-border caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 mb-1">
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-28.svg" alt="Icon" class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4" />
+                      <div
+                        class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.627_0.265_303.9)] border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-2"
+                      >
+                        <div
+                          class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pt-4 pb-6 px-4"
+                        >
+                          <div
+                            class="text-[oklch(0.558_0.288_302.321)] text-xs font-medium items-center box-border caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 mb-1"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-28.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+                            />
                             Categories
                           </div>
-                          <div class="text-[oklch(0.558_0.288_302.321)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]" id="stat-categories">8</div>
+                          <div
+                            class="text-[oklch(0.558_0.288_302.321)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            id="stat-categories"
+                          >
+                            8
+                          </div>
                         </div>
                       </div>
 
                       <!-- Total Stock -->
-                      <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-3">
-                        <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pt-4 pb-6 px-4">
-                          <div class="text-[oklch(0.511_0.262_276.966)] text-xs font-medium items-center box-border caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 mb-1">
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-29.svg" alt="Icon" class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4" />
+                      <div
+                        class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-3"
+                      >
+                        <div
+                          class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pt-4 pb-6 px-4"
+                        >
+                          <div
+                            class="text-[oklch(0.511_0.262_276.966)] text-xs font-medium items-center box-border caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 mb-1"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-29.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+                            />
                             Total Stock
                           </div>
-                          <div class="text-[oklch(0.511_0.262_276.966)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]" id="stat-total-stock">8316</div>
+                          <div
+                            class="text-[oklch(0.511_0.262_276.966)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            id="stat-total-stock"
+                          >
+                            8316
+                          </div>
                         </div>
                       </div>
 
                       <!-- Inventory Value -->
-                      <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.723_0.219_149.579)] border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-4">
-                        <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pt-4 pb-6 px-4">
-                          <div class="text-[oklch(0.627_0.194_149.214)] text-xs font-medium items-center box-border caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 mb-1">
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-30.svg" alt="Icon" class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4" />
+                      <div
+                        class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] border-b-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-r-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] border-t-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 rounded-xl border-l-[oklch(0.723_0.219_149.579)] border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-4"
+                      >
+                        <div
+                          class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pt-4 pb-6 px-4"
+                        >
+                          <div
+                            class="text-[oklch(0.627_0.194_149.214)] text-xs font-medium items-center box-border caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 mb-1"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-30.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+                            />
                             Inventory Value
                           </div>
-                          <div class="text-[oklch(0.627_0.194_149.214)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]" id="stat-inventory-value">£214079</div>
+                          <div
+                            class="text-[oklch(0.627_0.194_149.214)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            id="stat-inventory-value"
+                          >
+                            £214079
+                          </div>
                         </div>
                       </div>
 
                       <!-- Low / Out Stock -->
-                      <div class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-4">
-                        <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pt-4 pb-6 px-4">
-                          <div class="text-[oklch(0.577_0.245_27.325)] text-xs font-medium items-center box-border caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 mb-1">
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-31.svg" alt="Icon" class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4" />
+                      <div
+                        class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-l-4 border-b border-r border-t border-solid animate-slide-up stagger-4"
+                      >
+                        <div
+                          class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pt-4 pb-6 px-4"
+                        >
+                          <div
+                            class="text-[oklch(0.577_0.245_27.325)] text-xs font-medium items-center box-border caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 mb-1"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-31.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-4"
+                            />
                             Low / Out Stock
                           </div>
-                          <div class="text-[oklch(0.577_0.245_27.325)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]" id="stat-low-out-stock">0 / 0</div>
+                          <div
+                            class="text-[oklch(0.577_0.245_27.325)] text-2xl font-bold box-border caret-transparent leading-8 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            id="stat-low-out-stock"
+                          >
+                            0 / 0
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -333,10 +478,16 @@
                       class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] mb-4 rounded-xl border-solid animate-slide-up"
                       style="animation-delay: 0.4s; animation-fill-mode: both"
                     >
-                      <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pt-4 pb-6 px-4">
+                      <div
+                        class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pt-4 pb-6 px-4"
+                      >
                         <!-- Search row -->
-                        <div class="items-center box-border caret-transparent gap-x-3 flex flex-wrap outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-3 mb-3">
-                          <div class="relative box-border caret-transparent basis-[0%] grow min-w-52 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+                        <div
+                          class="items-center box-border caret-transparent gap-x-3 flex flex-wrap outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-3 mb-3"
+                        >
+                          <div
+                            class="relative box-border caret-transparent basis-[0%] grow min-w-52 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                          >
                             <img
                               src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-32.svg"
                               alt="Icon"
@@ -354,48 +505,114 @@
                             id="filters-btn"
                             class="text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-1.5 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2.5 py-0 rounded-lg border-solid"
                           >
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-33.svg" alt="Icon" class="box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4" />
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-33.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
+                            />
                             Filters
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-34.svg" alt="Icon" class="box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4" />
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-34.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
+                            />
                           </button>
                           <button
                             id="json-btn"
                             class="text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-1.5 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2.5 py-0 rounded-lg border-solid"
                           >
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-35.svg" alt="Icon" class="box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4" />
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-35.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
+                            />
                             JSON
                           </button>
                         </div>
 
                         <!-- Column visibility toggle pills -->
-                        <div class="box-border caret-transparent gap-x-2 flex flex-wrap outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 pt-1 border-t border-solid border-black/10">
-                          <span class="text-[oklch(0.707_0.022_261.325)] text-xs self-center box-border caret-transparent block leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">Columns:</span>
-                          <button data-col="sku" class="col-toggle text-[oklch(0.488_0.243_264.376)] text-xs font-medium items-center bg-[oklch(0.97_0.014_254.604)] caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center border px-2 py-1 rounded border-solid border-[oklch(0.809_0.105_251.813)]">
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-36.svg" alt="Icon" class="box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3" />
+                        <div
+                          class="box-border caret-transparent gap-x-2 flex flex-wrap outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 pt-1 border-t border-solid border-black/10"
+                        >
+                          <span
+                            class="text-[oklch(0.707_0.022_261.325)] text-xs self-center box-border caret-transparent block leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >Columns:</span
+                          >
+                          <button
+                            data-col="sku"
+                            class="col-toggle text-[oklch(0.488_0.243_264.376)] text-xs font-medium items-center bg-[oklch(0.97_0.014_254.604)] caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center border px-2 py-1 rounded border-solid border-[oklch(0.809_0.105_251.813)]"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-36.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3"
+                            />
                             SKU
                           </button>
-                          <button data-col="category" class="col-toggle text-[oklch(0.488_0.243_264.376)] text-xs font-medium items-center bg-[oklch(0.97_0.014_254.604)] caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center border px-2 py-1 rounded border-solid border-[oklch(0.809_0.105_251.813)]">
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-36.svg" alt="Icon" class="box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3" />
+                          <button
+                            data-col="category"
+                            class="col-toggle text-[oklch(0.488_0.243_264.376)] text-xs font-medium items-center bg-[oklch(0.97_0.014_254.604)] caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center border px-2 py-1 rounded border-solid border-[oklch(0.809_0.105_251.813)]"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-36.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3"
+                            />
                             Category
                           </button>
-                          <button data-col="wholesale" class="col-toggle text-[oklch(0.488_0.243_264.376)] text-xs font-medium items-center bg-[oklch(0.97_0.014_254.604)] caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center border px-2 py-1 rounded border-solid border-[oklch(0.809_0.105_251.813)]">
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-36.svg" alt="Icon" class="box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3" />
+                          <button
+                            data-col="wholesale"
+                            class="col-toggle text-[oklch(0.488_0.243_264.376)] text-xs font-medium items-center bg-[oklch(0.97_0.014_254.604)] caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center border px-2 py-1 rounded border-solid border-[oklch(0.809_0.105_251.813)]"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-36.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3"
+                            />
                             Wholesale
                           </button>
-                          <button data-col="trader" class="col-toggle text-[oklch(0.488_0.243_264.376)] text-xs font-medium items-center bg-[oklch(0.97_0.014_254.604)] caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center border px-2 py-1 rounded border-solid border-[oklch(0.809_0.105_251.813)]">
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-36.svg" alt="Icon" class="box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3" />
+                          <button
+                            data-col="trader"
+                            class="col-toggle text-[oklch(0.488_0.243_264.376)] text-xs font-medium items-center bg-[oklch(0.97_0.014_254.604)] caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center border px-2 py-1 rounded border-solid border-[oklch(0.809_0.105_251.813)]"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-36.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3"
+                            />
                             Trader
                           </button>
-                          <button data-col="retail" class="col-toggle text-[oklch(0.488_0.243_264.376)] text-xs font-medium items-center bg-[oklch(0.97_0.014_254.604)] caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center border px-2 py-1 rounded border-solid border-[oklch(0.809_0.105_251.813)]">
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-36.svg" alt="Icon" class="box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3" />
+                          <button
+                            data-col="retail"
+                            class="col-toggle text-[oklch(0.488_0.243_264.376)] text-xs font-medium items-center bg-[oklch(0.97_0.014_254.604)] caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center border px-2 py-1 rounded border-solid border-[oklch(0.809_0.105_251.813)]"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-36.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3"
+                            />
                             Retail
                           </button>
-                          <button data-col="stock" class="col-toggle text-[oklch(0.488_0.243_264.376)] text-xs font-medium items-center bg-[oklch(0.97_0.014_254.604)] caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center border px-2 py-1 rounded border-solid border-[oklch(0.809_0.105_251.813)]">
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-36.svg" alt="Icon" class="box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3" />
+                          <button
+                            data-col="stock"
+                            class="col-toggle text-[oklch(0.488_0.243_264.376)] text-xs font-medium items-center bg-[oklch(0.97_0.014_254.604)] caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center border px-2 py-1 rounded border-solid border-[oklch(0.809_0.105_251.813)]"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-36.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3"
+                            />
                             Stock
                           </button>
-                          <button data-col="value" class="col-toggle text-[oklch(0.488_0.243_264.376)] text-xs font-medium items-center bg-[oklch(0.97_0.014_254.604)] caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center border px-2 py-1 rounded border-solid border-[oklch(0.809_0.105_251.813)]">
-                            <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-36.svg" alt="Icon" class="box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3" />
+                          <button
+                            data-col="value"
+                            class="col-toggle text-[oklch(0.488_0.243_264.376)] text-xs font-medium items-center bg-[oklch(0.97_0.014_254.604)] caret-transparent gap-x-1.5 flex leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center border px-2 py-1 rounded border-solid border-[oklch(0.809_0.105_251.813)]"
+                          >
+                            <img
+                              src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-36.svg"
+                              alt="Icon"
+                              class="box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-3"
+                            />
                             Value
                           </button>
                         </div>
@@ -407,75 +624,163 @@
                       class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid animate-slide-up"
                       style="animation-delay: 0.5s; animation-fill-mode: both"
                     >
-                      <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6">
+                      <div
+                        class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pb-6"
+                      >
                         <!-- Table wrapper with horizontal scroll on mobile -->
-                        <div class="relative box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full overflow-auto">
+                        <div
+                          class="relative box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full overflow-auto"
+                        >
                           <table
                             id="product-table"
                             class="text-sm caret-transparent leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full border-collapse"
                             style="min-width: 900px"
                           >
-                            <thead class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
-                              <tr class="bg-[oklch(0.985_0.002_247.839)] box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] align-middle border-b border-solid border-black/10">
+                            <thead
+                              class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >
+                              <tr
+                                class="bg-[oklch(0.985_0.002_247.839)] box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] align-middle border-b border-solid border-black/10"
+                              >
                                 <!-- Checkbox col -->
-                                <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle w-10 px-2 py-0">
-                                  <button class="text-base items-center bg-transparent caret-transparent flex leading-6 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-center text-nowrap p-0" id="select-all-btn">
-                                    <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-37.svg" alt="Icon" class="text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-4" />
+                                <th
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle w-10 px-2 py-0"
+                                >
+                                  <button
+                                    class="text-base items-center bg-transparent caret-transparent flex leading-6 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-center text-nowrap p-0"
+                                    id="select-all-btn"
+                                  >
+                                    <img
+                                      src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-37.svg"
+                                      alt="Icon"
+                                      class="text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-4"
+                                    />
                                   </button>
                                 </th>
                                 <!-- Product Name -->
-                                <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">
-                                  <div class="items-center box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap">
+                                <th
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  <div
+                                    class="items-center box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap"
+                                  >
                                     Product Name
-                                    <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-38.svg" alt="Icon" class="text-[oklch(0.546_0.245_262.881)] box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-3 ml-1" />
+                                    <img
+                                      src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-38.svg"
+                                      alt="Icon"
+                                      class="text-[oklch(0.546_0.245_262.881)] box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-3 ml-1"
+                                    />
                                   </div>
                                 </th>
                                 <!-- SKU -->
-                                <th data-col-header="sku" class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">
-                                  <div class="items-center box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap">
+                                <th
+                                  data-col-header="sku"
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  <div
+                                    class="items-center box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap"
+                                  >
                                     SKU
-                                    <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-39.svg" alt="Icon" class="text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-3 ml-1" />
+                                    <img
+                                      src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-39.svg"
+                                      alt="Icon"
+                                      class="text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-3 ml-1"
+                                    />
                                   </div>
                                 </th>
                                 <!-- Category -->
-                                <th data-col-header="category" class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">
-                                  <div class="items-center box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap">
+                                <th
+                                  data-col-header="category"
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  <div
+                                    class="items-center box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap"
+                                  >
                                     Category
-                                    <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-39.svg" alt="Icon" class="text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-3 ml-1" />
+                                    <img
+                                      src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-39.svg"
+                                      alt="Icon"
+                                      class="text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-3 ml-1"
+                                    />
                                   </div>
                                 </th>
                                 <!-- Wholesale -->
-                                <th data-col-header="wholesale" class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">
-                                  <div class="items-center box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap">
+                                <th
+                                  data-col-header="wholesale"
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  <div
+                                    class="items-center box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap"
+                                  >
                                     Wholesale
-                                    <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-39.svg" alt="Icon" class="text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-3 ml-1" />
+                                    <img
+                                      src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-39.svg"
+                                      alt="Icon"
+                                      class="text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-3 ml-1"
+                                    />
                                   </div>
                                 </th>
                                 <!-- Trader -->
-                                <th data-col-header="trader" class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">
-                                  <div class="items-center box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap">
+                                <th
+                                  data-col-header="trader"
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  <div
+                                    class="items-center box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap"
+                                  >
                                     Trader
-                                    <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-39.svg" alt="Icon" class="text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-3 ml-1" />
+                                    <img
+                                      src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-39.svg"
+                                      alt="Icon"
+                                      class="text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-3 ml-1"
+                                    />
                                   </div>
                                 </th>
                                 <!-- Retail -->
-                                <th data-col-header="retail" class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">
-                                  <div class="items-center box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap">
+                                <th
+                                  data-col-header="retail"
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  <div
+                                    class="items-center box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap"
+                                  >
                                     Retail
-                                    <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-39.svg" alt="Icon" class="text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-3 ml-1" />
+                                    <img
+                                      src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-39.svg"
+                                      alt="Icon"
+                                      class="text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-3 ml-1"
+                                    />
                                   </div>
                                 </th>
                                 <!-- Stock -->
-                                <th data-col-header="stock" class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">
-                                  <div class="items-center box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap">
+                                <th
+                                  data-col-header="stock"
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  <div
+                                    class="items-center box-border caret-transparent flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap"
+                                  >
                                     Stock
-                                    <img src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-39.svg" alt="Icon" class="text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-3 ml-1" />
+                                    <img
+                                      src="https://c.animaapp.com/mlyr16ebcPAVbk/assets/icon-39.svg"
+                                      alt="Icon"
+                                      class="text-[oklch(0.707_0.022_261.325)] box-border caret-transparent h-3 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-nowrap w-3 ml-1"
+                                    />
                                   </div>
                                 </th>
                                 <!-- Value -->
-                                <th data-col-header="value" class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Value</th>
+                                <th
+                                  data-col-header="value"
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  Value
+                                </th>
                                 <!-- Actions -->
-                                <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Actions</th>
+                                <th
+                                  class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                >
+                                  Actions
+                                </th>
                               </tr>
                             </thead>
                             <tbody
@@ -486,13 +791,21 @@
                         </div>
 
                         <!-- Pagination -->
-                        <div class="items-center bg-[oklch(0.985_0.002_247.839)] box-border caret-transparent flex justify-between outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] px-4 py-3 border-t border-solid border-black/10">
-                          <span id="pagination-info" class="text-[oklch(0.551_0.027_264.364)] text-xs box-border caret-transparent block leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">Showing 1–25 of 53</span>
-                          <div class="items-center box-border caret-transparent gap-x-1 flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1" id="pagination-controls"></div>
+                        <div
+                          class="items-center bg-[oklch(0.985_0.002_247.839)] box-border caret-transparent flex justify-between outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] px-4 py-3 border-t border-solid border-black/10"
+                        >
+                          <span
+                            id="pagination-info"
+                            class="text-[oklch(0.551_0.027_264.364)] text-xs box-border caret-transparent block leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+                            >Showing 1–25 of 53</span
+                          >
+                          <div
+                            class="items-center box-border caret-transparent gap-x-1 flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1"
+                            id="pagination-controls"
+                          ></div>
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </main>
               </div>
@@ -661,10 +974,13 @@
         const stockBadge = document.createElement("span");
         // Colour-code badge: green = in stock, amber = low, red = out
         let badgeBg = "bg-[oklch(0.696_0.17_162.48)]";
-        if (item.status === "Low Stock") badgeBg = "bg-[oklch(0.646_0.222_41.116)]";
-        if (item.status === "Out of Stock") badgeBg = "bg-[oklch(0.45_0.18_20)]";
+        if (item.status === "Low Stock")
+          badgeBg = "bg-[oklch(0.646_0.222_41.116)]";
+        if (item.status === "Out of Stock")
+          badgeBg = "bg-[oklch(0.45_0.18_20)]";
         stockBadge.className =
-          "text-white text-xs font-medium items-center " + badgeBg +
+          "text-white text-xs font-medium items-center " +
+          badgeBg +
           " box-border caret-transparent gap-x-1 flex shrink-0 justify-center leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1 text-nowrap w-fit border overflow-hidden px-2 py-0.5 rounded-md border-solid border-transparent";
         stockBadge.textContent = item.stock;
         stockWrap.appendChild(stockBadge);
@@ -746,7 +1062,7 @@
           tdRetail,
           tdStock,
           tdValue,
-          tdActions
+          tdActions,
         );
         return tr;
       }
@@ -782,7 +1098,8 @@
         const end = Math.min(page * PAGE_SIZE, total);
 
         const info = document.getElementById("pagination-info");
-        if (info) info.textContent = "Showing " + start + "–" + end + " of " + total;
+        if (info)
+          info.textContent = "Showing " + start + "–" + end + " of " + total;
 
         const controls = document.getElementById("pagination-controls");
         if (!controls) return;
@@ -794,14 +1111,16 @@
         btnPrev.className =
           "text-xs font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-1.5 flex shrink-0 h-7 justify-center leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2 py-0 rounded-lg border-solid" +
           (page === 1 ? " opacity-50 pointer-events-none" : "");
-        if (page > 1) btnPrev.addEventListener("click", () => goToPage(page - 1));
+        if (page > 1)
+          btnPrev.addEventListener("click", () => goToPage(page - 1));
         controls.appendChild(btnPrev);
 
         // Page number buttons (show up to 5 pages)
         const maxButtons = 5;
         let startPage = Math.max(1, page - Math.floor(maxButtons / 2));
         let endPage = Math.min(totalPages, startPage + maxButtons - 1);
-        if (endPage - startPage < maxButtons - 1) startPage = Math.max(1, endPage - maxButtons + 1);
+        if (endPage - startPage < maxButtons - 1)
+          startPage = Math.max(1, endPage - maxButtons + 1);
 
         for (let p = startPage; p <= endPage; p++) {
           const btnPage = document.createElement("button");
@@ -812,7 +1131,14 @@
           } else {
             btnPage.className =
               "text-xs font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-1.5 flex shrink-0 h-7 justify-center leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap w-7 border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] p-0 rounded-lg border-solid";
-            btnPage.addEventListener("click", (function(pg){ return function(){ goToPage(pg); }; })(p));
+            btnPage.addEventListener(
+              "click",
+              (function (pg) {
+                return function () {
+                  goToPage(pg);
+                };
+              })(p),
+            );
           }
           controls.appendChild(btnPage);
         }
@@ -823,7 +1149,8 @@
         btnNext.className =
           "text-xs font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-1.5 flex shrink-0 h-7 justify-center leading-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-1.5 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2 py-0 rounded-lg border-solid" +
           (page === totalPages ? " opacity-50 pointer-events-none" : "");
-        if (page < totalPages) btnNext.addEventListener("click", () => goToPage(page + 1));
+        if (page < totalPages)
+          btnNext.addEventListener("click", () => goToPage(page + 1));
         controls.appendChild(btnNext);
       }
 
@@ -837,14 +1164,17 @@
        * ══════════════════════════════════════════════════════════════ */
       function applySearch(query) {
         if (!query || query.trim() === "") {
-          filteredData = typeof inventoryData !== "undefined" ? inventoryData.slice() : [];
+          filteredData =
+            typeof inventoryData !== "undefined" ? inventoryData.slice() : [];
         } else {
           const lc = query.toLowerCase();
-          filteredData = (typeof inventoryData !== "undefined" ? inventoryData : []).filter(
+          filteredData = (
+            typeof inventoryData !== "undefined" ? inventoryData : []
+          ).filter(
             (item) =>
               item.product.toLowerCase().includes(lc) ||
               item.sku.toLowerCase().includes(lc) ||
-              item.category.toLowerCase().includes(lc)
+              item.category.toLowerCase().includes(lc),
           );
         }
         currentPage = 1;
@@ -873,9 +1203,11 @@
           const th = document.querySelector('[data-col-header="' + col + '"]');
           if (th) th.style.display = isHidden ? "none" : "";
           // Body cells
-          document.querySelectorAll('[data-col-cell="' + col + '"]').forEach((td) => {
-            td.style.display = isHidden ? "none" : "";
-          });
+          document
+            .querySelectorAll('[data-col-cell="' + col + '"]')
+            .forEach((td) => {
+              td.style.display = isHidden ? "none" : "";
+            });
         });
       }
 
@@ -884,7 +1216,8 @@
        * ══════════════════════════════════════════════════════════════ */
       document.addEventListener("DOMContentLoaded", function () {
         // Initial render using inventoryData from InventoryData.js
-        filteredData = typeof inventoryData !== "undefined" ? inventoryData.slice() : [];
+        filteredData =
+          typeof inventoryData !== "undefined" ? inventoryData.slice() : [];
         renderProductTableNewUI(filteredData, currentPage);
 
         // Search input
@@ -934,9 +1267,21 @@
         if (exportBtn) {
           exportBtn.addEventListener("click", function () {
             if (typeof inventoryData === "undefined") return;
-            const headers = ["product", "sku", "category", "wholesale", "trader", "price", "stock", "status", "value"];
+            const headers = [
+              "product",
+              "sku",
+              "category",
+              "wholesale",
+              "trader",
+              "price",
+              "stock",
+              "status",
+              "value",
+            ];
             const rows = inventoryData.map((item) =>
-              headers.map((h) => '"' + (item[h] !== undefined ? item[h] : "") + '"').join(",")
+              headers
+                .map((h) => '"' + (item[h] !== undefined ? item[h] : "") + '"')
+                .join(","),
             );
             const csv = [headers.join(",")].concat(rows).join("\n");
             const blob = new Blob([csv], { type: "text/csv" });
@@ -955,7 +1300,9 @@
           jsonBtn.addEventListener("click", function () {
             if (typeof inventoryData !== "undefined") {
               const w = window.open("", "_blank");
-              w.document.write("<pre>" + JSON.stringify(inventoryData, null, 2) + "</pre>");
+              w.document.write(
+                "<pre>" + JSON.stringify(inventoryData, null, 2) + "</pre>",
+              );
             }
           });
         }

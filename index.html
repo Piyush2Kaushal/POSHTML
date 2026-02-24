@@ -61,44 +61,152 @@
     </script>
     <style>
       @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
       }
       @keyframes slideUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
       @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
       @keyframes scaleIn {
-        from { opacity: 0; transform: scale(0.95); }
-        to { opacity: 1; transform: scale(1); }
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
       }
 
-      .animate-fade-in  { animation: fadeIn 0.6s ease-out; }
-      .animate-slide-up { animation: slideUp 0.6s ease-out; }
-      .animate-slide-down { animation: slideDown 0.3s ease-out; }
-      .animate-scale-in { animation: scaleIn 0.4s ease-out; }
+      .animate-fade-in {
+        animation: fadeIn 0.6s ease-out;
+      }
+      .animate-slide-up {
+        animation: slideUp 0.6s ease-out;
+      }
+      .animate-slide-down {
+        animation: slideDown 0.3s ease-out;
+      }
+      .animate-scale-in {
+        animation: scaleIn 0.4s ease-out;
+      }
 
-      .stagger-1 { animation-delay: 0.1s; animation-fill-mode: both; }
-      .stagger-2 { animation-delay: 0.2s; animation-fill-mode: both; }
-      .stagger-3 { animation-delay: 0.3s; animation-fill-mode: both; }
-      .stagger-4 { animation-delay: 0.4s; animation-fill-mode: both; }
+      .stagger-1 {
+        animation-delay: 0.1s;
+        animation-fill-mode: both;
+      }
+      .stagger-2 {
+        animation-delay: 0.2s;
+        animation-fill-mode: both;
+      }
+      .stagger-3 {
+        animation-delay: 0.3s;
+        animation-fill-mode: both;
+      }
+      .stagger-4 {
+        animation-delay: 0.4s;
+        animation-fill-mode: both;
+      }
 
-      .transition-all { transition: all 0.3s ease; }
+      .transition-all {
+        transition: all 0.3s ease;
+      }
 
       .hover-lift:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.1),
+          0 8px 10px -6px rgba(0, 0, 0, 0.1);
       }
 
-      .hover-scale:hover { transform: scale(1.02); }
+      .hover-scale:hover {
+        transform: scale(1.02);
+      }
 
-      .sidebar-item { transition: all 0.2s ease; }
-      .sidebar-item:hover { background-color: rgba(0,0,0,0.03); }
-      .sidebar-item.active { background-color: rgba(14,165,233,0.1); }
+      .sidebar-item {
+        transition: all 0.2s ease;
+      }
+      .sidebar-item:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+      }
+      .sidebar-item.active {
+        background-color: rgba(14, 165, 233, 0.1);
+      }
+
+      /* Add Product - Green */
+      .qa-add-product {
+        border-color: oklch(0.627 0.194 149.214);
+      }
+      .qa-add-product:hover {
+        background-color: oklch(0.627 0.194 149.214 / 0.05);
+        border-color: oklch(0.627 0.194 149.214);
+      }
+
+      /* Add Customer - Purple */
+      .qa-add-customer {
+        border-color: oklch(0.558 0.288 302.321);
+      }
+      .qa-add-customer:hover {
+        background-color: oklch(0.558 0.288 302.321 / 0.05);
+        border-color: oklch(0.558 0.288 302.321);
+      }
+
+      /* Product List - Blue */
+      .qa-product-list {
+        border-color: oklch(0.546 0.245 262.881);
+      }
+      .qa-product-list:hover {
+        background-color: oklch(0.546 0.245 262.881 / 0.05);
+        border-color: oklch(0.546 0.245 262.881);
+      }
+
+      /* Today Sales - Orange */
+      .qa-today-sales {
+        border-color: oklch(0.646 0.222 41.116);
+      }
+      .qa-today-sales:hover {
+        background-color: oklch(0.646 0.222 41.116 / 0.05);
+        border-color: oklch(0.646 0.222 41.116);
+      }
+
+      /* Customer - Slate */
+      .qa-customer {
+        border-color: oklch(0.446 0.03 256.802);
+      }
+      .qa-customer:hover {
+        background-color: oklch(0.446 0.03 256.802 / 0.05);
+        border-color: oklch(0.446 0.03 256.802);
+      }
+
+      /* Dashboard - Red */
+      .qa-dashboard {
+        border-color: oklch(0.45 0.18 27.325);
+      }
+      .qa-dashboard:hover {
+        background-color: oklch(0.45 0.18 27.325 / 0.05);
+        border-color: oklch(0.45 0.18 27.325);
+      }
 
       /* Mobile sidebar overlay */
       #sidebar-overlay {
@@ -239,59 +347,66 @@
                           id="quick-actions"
                           class="items-center box-border caret-transparent gap-x-3 flex outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-3 w-full md:w-auto"
                         >
+                          <a href="ProductManagement.html">
+                            <button
+                              class="qa-add-product text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-2 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2.5 py-0 rounded-lg border-solid"
+                            >
+                              <img
+                                src="https://c.animaapp.com/mlt18op6AAV2ml/assets/icon-20.svg"
+                                alt="Icon"
+                                class="text-[oklch(0.627_0.194_149.214)] box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
+                              />
+                              Add New Product
+                            </button>
+                          </a>
                           <button
-                            class="text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-2 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2.5 py-0 rounded-lg border-solid"
-                          >
-                            <img
-                              src="https://c.animaapp.com/mlt18op6AAV2ml/assets/icon-20.svg"
-                              alt="Icon"
-                              class="text-[oklch(0.627_0.194_149.214)] box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
-                            />
-                            Add New Product
-                          </button>
-                          <button
-                            class="text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-2 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2.5 py-0 rounded-lg border-solid"
+                            class="qa-add-customer text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-2 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2.5 py-0 rounded-lg border-solid"
                           >
                             <img
                               src="https://c.animaapp.com/mlt18op6AAV2ml/assets/icon-21.svg"
                               alt="Icon"
                               class="text-[oklch(0.558_0.288_302.321)] box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
-                            
                             />
                             Add Customer Product
                           </button>
+                          <a href="Inventory.html">
+                            <button
+                              class="qa-product-list text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-2 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2.5 py-0 rounded-lg border-solid"
+                            >
+                              <img
+                                src="https://c.animaapp.com/mlt18op6AAV2ml/assets/icon-22.svg"
+                                alt="Icon"
+                                class="text-[oklch(0.546_0.245_262.881)] box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
+                              />
+                              Product List
+                            </button>
+                          </a>
+                          <a href="AdvancedReports&Analytics.html">
+                            <button
+                              class="qa-today-sales text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-2 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2.5 py-0 rounded-lg border-solid"
+                            >
+                              <img
+                                src="https://c.animaapp.com/mlt18op6AAV2ml/assets/icon-23.svg"
+                                alt="Icon"
+                                class="text-[oklch(0.646_0.222_41.116)] box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
+                              />
+                              Today Sales
+                            </button>
+                          </a>
+                          <a href="CustomerManagement.html">
+                            <button
+                              class="qa-customer text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-2 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2.5 py-0 rounded-lg border-solid"
+                            >
+                              <img
+                                src="https://c.animaapp.com/mlt18op6AAV2ml/assets/icon-24.svg"
+                                alt="Icon"
+                                class="text-[oklch(0.446_0.03_256.802)] box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
+                              />
+                              Customer
+                            </button>
+                          </a>
                           <button
-                            class="text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-2 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2.5 py-0 rounded-lg border-solid"
-                          >
-                            <img
-                              src="https://c.animaapp.com/mlt18op6AAV2ml/assets/icon-22.svg"
-                              alt="Icon"
-                              class="text-[oklch(0.546_0.245_262.881)] box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
-                            />
-                            Product List
-                          </button>
-                          <button
-                            class="text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-2 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2.5 py-0 rounded-lg border-solid"
-                          >
-                            <img
-                              src="https://c.animaapp.com/mlt18op6AAV2ml/assets/icon-23.svg"
-                              alt="Icon"
-                              class="text-[oklch(0.646_0.222_41.116)] box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
-                            />
-                            Today Sales
-                          </button>
-                          <button
-                            class="text-sm font-medium items-center backdrop-blur bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.6)] caret-transparent gap-x-2 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.8)] px-2.5 py-0 rounded-lg border-solid"
-                          >
-                            <img
-                              src="https://c.animaapp.com/mlt18op6AAV2ml/assets/icon-24.svg"
-                              alt="Icon"
-                              class="text-[oklch(0.446_0.03_256.802)] box-border caret-transparent shrink-0 h-4 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-none text-nowrap w-4"
-                            />
-                            Customer
-                          </button>
-                          <button
-                            class="text-white text-sm font-medium items-center bg-red-600 shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] caret-transparent gap-x-2 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap px-2.5 py-0 rounded-lg"
+                            class="qa-dashboard text-white text-sm font-medium items-center bg-red-600 shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] caret-transparent gap-x-2 flex shrink-0 h-8 justify-center leading-5 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-2 text-center text-nowrap px-2.5 py-0 rounded-lg"
                           >
                             <img
                               src="https://c.animaapp.com/mlt18op6AAV2ml/assets/icon-25.svg"

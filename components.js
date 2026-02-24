@@ -512,25 +512,25 @@
   /* Classes added to the <a> wrapper when active */
   var ACTIVE_LINK_ADD =
     "bg-[oklch(0.97_0.014_254.604)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px]".split(
-      " "
+      " ",
     );
 
   /* The icon-wrap background on the active "New Sale" item in Panther */
   var ACTIVE_NEWSALE_ICON_BG =
     "bg-[linear-gradient(to_right_bottom,oklch(0.623_0.214_259.815)_0%,oklch(0.715_0.143_215.221)_100%)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px]".split(
-      " "
+      " ",
     );
 
   /* The icon-wrap background on the active "Inventory" item */
   var ACTIVE_INVENTORY_ICON_BG =
     "bg-[linear-gradient(to_right_bottom,oklch(0.696_0.17_162.48)_0%,oklch(0.704_0.14_182.503)_100%)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px]".split(
-      " "
+      " ",
     );
 
   /* Generic gradient for any other active item */
   var ACTIVE_GENERIC_ICON_BG =
     "bg-[linear-gradient(to_right_bottom,oklch(0.623_0.214_259.815)_0%,oklch(0.546_0.245_262.881)_100%)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px]".split(
-      " "
+      " ",
     );
 
   var DEFAULT_ICON_BG = "bg-[oklch(0.967_0.003_264.542)]";
@@ -690,7 +690,7 @@
 
     if (!headerSlot || !sidebarSlot) {
       console.warn(
-        "components.js: #header-slot or #sidebar-slot not found in page."
+        "components.js: #header-slot or #sidebar-slot not found in page.",
       );
       return;
     }
@@ -761,7 +761,7 @@
     try {
       localStorage.setItem(
         "sidebarExpanded",
-        sidebar.classList.contains("expanded") ? "1" : "0"
+        sidebar.classList.contains("expanded") ? "1" : "0",
       );
     } catch (e) {}
   };

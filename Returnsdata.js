@@ -550,7 +550,7 @@ function onReturnView(returnId) {
     function applyFilters() {
       filterAndRender(
         searchInput ? searchInput.value : "",
-        statusSelect ? statusSelect.value : ""
+        statusSelect ? statusSelect.value : "",
       );
     }
 

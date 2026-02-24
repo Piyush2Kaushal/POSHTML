@@ -62,59 +62,123 @@
     </script>
     <style>
       @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
       }
       @keyframes slideUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
       @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
       @keyframes scaleIn {
-        from { opacity: 0; transform: scale(0.95); }
-        to { opacity: 1; transform: scale(1); }
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
       }
 
-      .animate-fade-in  { animation: fadeIn 0.6s ease-out; }
-      .animate-slide-up { animation: slideUp 0.6s ease-out; }
-      .animate-slide-down { animation: slideDown 0.3s ease-out; }
-      .animate-scale-in { animation: scaleIn 0.4s ease-out; }
+      .animate-fade-in {
+        animation: fadeIn 0.6s ease-out;
+      }
+      .animate-slide-up {
+        animation: slideUp 0.6s ease-out;
+      }
+      .animate-slide-down {
+        animation: slideDown 0.3s ease-out;
+      }
+      .animate-scale-in {
+        animation: scaleIn 0.4s ease-out;
+      }
 
-      .stagger-1 { animation-delay: 0.1s; animation-fill-mode: both; }
-      .stagger-2 { animation-delay: 0.2s; animation-fill-mode: both; }
-      .stagger-3 { animation-delay: 0.3s; animation-fill-mode: both; }
-      .stagger-4 { animation-delay: 0.4s; animation-fill-mode: both; }
+      .stagger-1 {
+        animation-delay: 0.1s;
+        animation-fill-mode: both;
+      }
+      .stagger-2 {
+        animation-delay: 0.2s;
+        animation-fill-mode: both;
+      }
+      .stagger-3 {
+        animation-delay: 0.3s;
+        animation-fill-mode: both;
+      }
+      .stagger-4 {
+        animation-delay: 0.4s;
+        animation-fill-mode: both;
+      }
 
-      .transition-all { transition: all 0.3s ease; }
+      .transition-all {
+        transition: all 0.3s ease;
+      }
 
       .hover-lift:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+        box-shadow:
+          0 10px 25px -5px rgba(0, 0, 0, 0.1),
+          0 8px 10px -6px rgba(0, 0, 0, 0.1);
       }
 
-      .hover-scale:hover { transform: scale(1.02); }
+      .hover-scale:hover {
+        transform: scale(1.02);
+      }
 
-      .sidebar-item { transition: all 0.2s ease; }
-      .sidebar-item:hover { background-color: rgba(0,0,0,0.03); }
-      .sidebar-item.active { background-color: rgba(14,165,233,0.1); }
+      .sidebar-item {
+        transition: all 0.2s ease;
+      }
+      .sidebar-item:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+      }
+      .sidebar-item.active {
+        background-color: rgba(14, 165, 233, 0.1);
+      }
 
-      .tab-button { transition: all 0.2s ease; }
-      .tab-button:not(.active):hover { background-color: rgba(0,0,0,0.03); }
+      .tab-button {
+        transition: all 0.2s ease;
+      }
+      .tab-button:not(.active):hover {
+        background-color: rgba(0, 0, 0, 0.03);
+      }
 
-      .progress-bar { transition: width 1s ease-out; }
+      .progress-bar {
+        transition: width 1s ease-out;
+      }
 
       input:focus,
       button:focus {
-        outline: 2px solid rgba(14,165,233,0.5);
+        outline: 2px solid rgba(14, 165, 233, 0.5);
         outline-offset: 2px;
       }
 
       /* ── Mobile sidebar overlay ── */
-      #sidebar-overlay { display: none; }
-      #sidebar-overlay.active { display: block; }
+      #sidebar-overlay {
+        display: none;
+      }
+      #sidebar-overlay.active {
+        display: block;
+      }
 
       @media (max-width: 767px) {
         #main-sidebar {
@@ -126,16 +190,17 @@
           transform: translateX(-100%);
           transition: transform 0.3s ease;
         }
-        #main-sidebar.open { transform: translateX(0); }
+        #main-sidebar.open {
+          transform: translateX(0);
+        }
         #sidebar-overlay {
           position: fixed;
           inset: 0;
           top: 3.5rem;
-          background: rgba(0,0,0,0.3);
+          background: rgba(0, 0, 0, 0.3);
           z-index: 39;
         }
       }
-
 
       @media (min-width: 768px) {
         #main-sidebar {
@@ -172,7 +237,7 @@
 
     <!-- ── Component configuration ─────────────────────────────── -->
     <script>
-      window.PAGE_ID   = "warehouse";
+      window.PAGE_ID = "warehouse";
       window.ASSET_BASE = "https://c.animaapp.com/mltc94xgw7LC6g/assets";
     </script>
   </head>
@@ -180,9 +245,15 @@
   <body
     class="text-zinc-900 text-base not-italic normal-nums font-normal accent-auto bg-zinc-100 box-border caret-transparent block tracking-[normal] leading-6 list-outside list-disc outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] pointer-events-auto text-start indent-[0px] normal-case visible border-separate font-ui_sans_serif"
   >
-    <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
-      <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
-        <div class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]">
+    <div
+      class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+    >
+      <div
+        class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+      >
+        <div
+          class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)]"
+        >
           <div
             class="relative box-border caret-transparent basis-0 grow shrink-0 min-h-px min-w-px outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] w-full"
             style="height: 100vh"
@@ -522,15 +593,51 @@
                                   <tr
                                     class="box-border caret-transparent outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] align-middle border-b border-solid border-black/10"
                                   >
-                                    <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Warehouse</th>
-                                    <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Location</th>
-                                    <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Manager</th>
-                                    <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Contact</th>
-                                    <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Capacity</th>
-                                    <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Current Stock</th>
-                                    <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0">Utilization</th>
-                                    <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Status</th>
-                                    <th class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0">Actions</th>
+                                    <th
+                                      class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                    >
+                                      Warehouse
+                                    </th>
+                                    <th
+                                      class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                    >
+                                      Location
+                                    </th>
+                                    <th
+                                      class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                    >
+                                      Manager
+                                    </th>
+                                    <th
+                                      class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                    >
+                                      Contact
+                                    </th>
+                                    <th
+                                      class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0"
+                                    >
+                                      Capacity
+                                    </th>
+                                    <th
+                                      class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0"
+                                    >
+                                      Current Stock
+                                    </th>
+                                    <th
+                                      class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-right text-nowrap align-middle px-2 py-0"
+                                    >
+                                      Utilization
+                                    </th>
+                                    <th
+                                      class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                    >
+                                      Status
+                                    </th>
+                                    <th
+                                      class="font-medium box-border caret-transparent h-10 outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] text-left text-nowrap align-middle px-2 py-0"
+                                    >
+                                      Actions
+                                    </th>
                                   </tr>
                                 </thead>
                                 <!-- tbody is populated by WarehouseData.js -->
@@ -553,7 +660,9 @@
                         <div
                           class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid p-6"
                         >
-                          <p class="text-center text-[oklch(0.551_0.027_264.364)]">
+                          <p
+                            class="text-center text-[oklch(0.551_0.027_264.364)]"
+                          >
                             Stock Transfers content would appear here
                           </p>
                         </div>
@@ -568,7 +677,9 @@
                         <div
                           class="backdrop-blur-xl bg-[oklab(0.999994_0.0000455677_0.0000200868_/_0.8)] shadow-[rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0)_0px_0px_0px_0px,rgba(0,0,0,0.1)_0px_1px_3px_0px,rgba(0,0,0,0.1)_0px_1px_2px_-1px] box-border caret-transparent gap-x-6 flex flex-col outline-[oklab(0.515373_-0.0460556_-0.153747_/_0.5)] gap-y-6 border border-[oklab(0.928_-0.000571842_-0.00597269_/_0.5)] rounded-xl border-solid p-6"
                         >
-                          <p class="text-center text-[oklch(0.551_0.027_264.364)]">
+                          <p
+                            class="text-center text-[oklch(0.551_0.027_264.364)]"
+                          >
                             Inventory Distribution content would appear here
                           </p>
                         </div>
@@ -598,7 +709,7 @@
 
       /* ── Tab switching ── */
       function switchTab(index) {
-        var tabs   = document.querySelectorAll(".tab-button");
+        var tabs = document.querySelectorAll(".tab-button");
         var panels = document.querySelectorAll('[role="tabpanel"]');
 
         tabs.forEach(function (tab, i) {

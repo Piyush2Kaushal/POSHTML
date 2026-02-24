@@ -341,7 +341,7 @@ function renderTemplateCards() {
   var grid = document.getElementById("templates-grid");
   if (!grid) {
     console.warn(
-      "InvoiceTemplatesData.js: #templates-grid element not found in page."
+      "InvoiceTemplatesData.js: #templates-grid element not found in page.",
     );
     return;
   }

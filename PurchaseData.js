@@ -334,7 +334,7 @@ function buildPurchaseRow(item, index, totalCount) {
     tdTotal,
     tdPayment,
     tdStatus,
-    tdAction
+    tdAction,
   );
   return tr;
 }
