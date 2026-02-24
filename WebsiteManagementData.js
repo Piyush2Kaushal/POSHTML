@@ -459,7 +459,7 @@ function renderWebsiteOverview() {
     var actionsFragment = document.createDocumentFragment();
     for (var j = 0; j < websiteQuickActions.length; j++) {
       actionsFragment.appendChild(
-        buildQuickActionButton(websiteQuickActions[j]),
+        buildQuickActionButton(websiteQuickActions[j])
       );
     }
     actionsGrid.appendChild(actionsFragment);
@@ -473,7 +473,7 @@ function renderWebsiteOverview() {
     var total = websitePopularProducts.length;
     for (var k = 0; k < total; k++) {
       tableFragment.appendChild(
-        buildPopularProductRow(websitePopularProducts[k], k, total),
+        buildPopularProductRow(websitePopularProducts[k], k, total)
       );
     }
     tbody.appendChild(tableFragment);
